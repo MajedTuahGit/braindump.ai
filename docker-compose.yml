@@ -1,0 +1,45 @@
+version: "3.9"
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  BrainDump.AI — Docker Compose
+#
+#  How to use:
+#    docker compose up --build          ← first time (builds image)
+#    docker compose up                  ← subsequent starts (fast)
+#    docker compose down                ← stop
+#    docker compose logs -f             ← tail live logs
+#
+#  Connect:
+#    Browser  → http://localhost:8000          (frontend UI)
+#    API docs → http://localhost:8000/docs     (Swagger / interactive)
+#    Health   → http://localhost:8000/api/health
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: braindump-ai
+    ports:
+      - "8000:8000"         # host_port:container_port
+    volumes:
+      # ── Persistence (survive container restarts / rebuilds) ──────────────
+      - ./models:/app/models    # trained model files (.pt, .pkl)
+      - ./db:/app/db            # SQLite database (braindump.db)
+
+      # ── Live code reload (no rebuild needed when you edit Python files) ───
+      - ./api:/app/api
+      - ./ml:/app/ml
+      - ./training:/app/training
+      - ./frontend:/app/frontend
+    environment:
+      - PYTHONUNBUFFERED=1      # print logs immediately (no buffering)
+      - PYTHONDONTWRITEBYTECODE=1
+    restart: unless-stopped     # auto-restart on crash, stop only on `docker compose down`
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s

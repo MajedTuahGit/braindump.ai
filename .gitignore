@@ -1,0 +1,37 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Trained model artifacts (large — don't commit)
+models/teacher_bert/
+models/student_distilled/
+models/student_pruned/
+models/student_quantized.pt
+models/tier1_svm.pkl
+models/student_tokenizer/
+
+# Database
+db/braindump.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.user
+
+# Augmented training data (generated, not hand-crafted)
+training/dataset_augmented.json
+training/splits/
+
+# OS
+.DS_Store
+Thumbs.db

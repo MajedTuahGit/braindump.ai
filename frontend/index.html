@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRAINDUMP.AI — Personal OS</title>
+  <meta name="description" content="Stream your consciousness. AI categorizes everything. No judgement, no structure required.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Design System ──────────────────────────────────────────── */
+    :root {
+      --bg:          #0a0a0a;
+      --surface:     #0f0f0f;
+      --surface-2:   #131313;
+      --surface-3:   #1a1a1a;
+      --border:      #1e1e1e;
+      --border-2:    #262626;
+      --text:        #c8c8c8;
+      --text-muted:  #484848;
+      --text-dim:    #282828;
+      --green:       #39ff14;
+      --green-dim:   rgba(57,255,20,0.06);
+      --green-glow:  rgba(57,255,20,0.15);
+
+      --cat-personal:    #3b82f6;
+      --cat-financial:   #22c55e;
+      --cat-projects:    #06b6d4;
+      --cat-admin:       #a855f7;
+      --cat-automation:  #f59e0b;
+
+      --st-new:      #f97316;
+      --st-ongoing:  #3b82f6;
+      --st-done:     #22c55e;
+      --st-pinnable: #ec4899;
+
+      --font:        'JetBrains Mono', 'Courier New', monospace;
+      --hh:          46px;   /* header height  */
+      --th:          220px;  /* terminal height */
+      --fh:          42px;   /* filter bar      */
+      --bh:          42px;   /* bottom bar      */
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 11.5px;
+      line-height: 1.5;
+      overflow: hidden;
+    }
+
+    /* ── App Grid ───────────────────────────────────────────────── */
+    .app {
+      display: grid;
+      grid-template-rows: var(--hh) var(--th) var(--fh) 1fr var(--bh);
+      height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────────────────────────── */
+    header {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+    }
+
+    .brand-box {
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green); font-size: 10px; line-height: 1;
+    }
+
+    .brand-name {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 12.5px;
+      letter-spacing: 0.06em;
+    }
+
+    .breadcrumb { color: var(--text-muted); font-size: 10.5px; }
+
+    .h-sep { width: 1px; height: 18px; background: var(--border-2); flex-shrink: 0; }
+
+    .h-status { display: flex; gap: 14px; flex: 1; align-items: center; }
+
+    .st-pill {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 10.5px; color: var(--text-muted);
+    }
+    .st-pill .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .st-pill .n   { color: var(--text); font-weight: 600; }
+
+    .h-nav { display: flex; gap: 1px; align-items: center; flex-shrink: 0; }
+
+    .nav-btn {
+      background: none; border: none;
+      color: var(--text-muted);
+      font-family: var(--font); font-size: 10.5px;
+      padding: 4px 10px; cursor: pointer; letter-spacing: 0.06em;
+      transition: color 0.15s;
+    }
+    .nav-btn:hover  { color: var(--text); }
+    .nav-btn.active { color: var(--green); }
+
+    .btn-publish {
+      background: var(--green); color: #000; border: none;
+      font-family: var(--font); font-size: 10.5px; font-weight: 700;
+      padding: 4px 13px; cursor: pointer; letter-spacing: 0.06em;
+      margin-left: 8px; transition: opacity 0.15s;
+    }
+    .btn-publish:hover { opacity: 0.8; }
+
+    /* ── Terminal ────────────────────────────────────────────────── */
+    .terminal {
+      display: flex; flex-direction: column;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      position: relative;
+    }
+
+    .term-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 7px 14px; border-bottom: 1px solid var(--border);
+      background: var(--surface-2); flex-shrink: 0;
+    }
+
+    .term-title {
+      color: var(--green); font-size: 10.5px; font-weight: 600;
+      letter-spacing: 0.08em; display: flex; align-items: center; gap: 7px;
+    }
+    .term-title::before { content: '▸'; }
+
+    .term-hint { font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; }
+
+    .dump-area {
+      flex: 1; background: transparent; border: none; resize: none; outline: none;
+      color: var(--text); font-family: var(--font); font-size: 12px; line-height: 1.75;
+      padding: 11px 14px; caret-color: var(--green);
+      transition: background 0.2s;
+    }
+    .dump-area::placeholder { color: var(--text-dim); }
+    .dump-area:focus { background: var(--green-dim); }
+
+    .term-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 5px 14px; border-top: 1px solid var(--border);
+      background: var(--surface-2); flex-shrink: 0;
+    }
+
+    .t-count { font-size: 10px; color: var(--text-muted); }
+    .t-count .n { color: var(--green); font-weight: 700; }
+
+    .btn-proc {
+      background: var(--green); color: #000; border: none;
+      font-family: var(--font); font-size: 10.5px; font-weight: 700;
+      padding: 5px 15px; cursor: pointer; letter-spacing: 0.06em;
+      display: flex; align-items: center; gap: 5px;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn-proc:hover  { opacity: 0.82; }
+    .btn-proc:active { transform: scale(0.98); }
+    .btn-proc[disabled] { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .spin {
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 2px solid #000; border-top-color: transparent;
+      animation: spin 0.55s linear infinite; display: none;
+    }
+    .btn-proc[disabled] .spin    { display: block; }
+    .btn-proc[disabled] .btn-ico { display: none; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Filter Bar ──────────────────────────────────────────────── */
+    .filter-bar {
+      display: flex; align-items: stretch;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface); overflow: hidden;
+    }
+
+    .cat-tabs {
+      display: flex; flex: 1;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .cat-tabs::-webkit-scrollbar { display: none; }
+
+    .c-tab {
+      display: flex; align-items: center; gap: 5px;
+      padding: 0 13px; height: var(--fh);
+      background: none; border: none;
+      border-right: 1px solid var(--border);
+      color: var(--text-muted); font-family: var(--font); font-size: 10.5px;
+      cursor: pointer; white-space: nowrap; letter-spacing: 0.05em;
+      position: relative; transition: color 0.12s, background 0.12s;
+    }
+    .c-tab::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px; background: transparent; transition: background 0.12s;
+    }
+    .c-tab:hover { color: var(--text); background: var(--surface-3); }
+    .c-tab.on    { color: var(--text); }
+    .c-tab.on::after { background: var(--green); }
+
+    .c-cnt {
+      font-size: 9.5px; padding: 1px 5px;
+      background: var(--surface-3); color: var(--text-muted);
+      min-width: 17px; text-align: center;
+    }
+    .c-tab.on .c-cnt { background: var(--green-glow); color: var(--green); }
+
+    .f-div { width: 1px; background: var(--border); flex-shrink: 0; }
+
+    .stat-btns {
+      display: flex; align-items: center;
+      padding: 0 10px; gap: 2px; flex-shrink: 0;
+    }
+
+    .s-btn {
+      background: none; border: 1px solid transparent;
+      color: var(--text-muted); font-family: var(--font); font-size: 10px;
+      padding: 3px 8px; cursor: pointer; letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 4px;
+      transition: all 0.12s;
+    }
+    .s-btn .dot { width: 5px; height: 5px; border-radius: 50%; }
+    .s-btn:hover { color: var(--text); border-color: var(--border-2); }
+    .s-btn.on    { color: var(--text); border-color: var(--border-2); background: var(--surface-3); }
+
+    /* ── Table ───────────────────────────────────────────────────── */
+    .tbl-wrap {
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-2) transparent;
+    }
+    .tbl-wrap::-webkit-scrollbar { width: 4px; }
+    .tbl-wrap::-webkit-scrollbar-thumb { background: var(--border-2); }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      padding: 7px 12px; text-align: left;
+      font-size: 9.5px; font-weight: 600;
+      color: var(--text-muted); letter-spacing: 0.09em; white-space: nowrap;
+    }
+
+    .col-cb     { width: 30px; }
+    .col-id     { width: 88px; }
+    .col-th     { }
+    .col-cat    { width: 130px; }
+    .col-st     { width: 108px; }
+    .col-dt     { width: 96px; }
+    .col-del    { width: 30px; }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      cursor: pointer; transition: background 0.1s;
+    }
+    tbody tr:hover    { background: var(--surface-3); }
+    tbody tr.open-row { background: var(--surface-2); }
+
+    td {
+      padding: 9px 12px; font-size: 11.5px; vertical-align: middle;
+    }
+
+    .td-id { color: var(--text-muted); font-size: 9.5px; letter-spacing: 0.05em; }
+
+    .td-text {
+      max-width: 0; overflow: hidden;
+      text-overflow: ellipsis; white-space: nowrap;
+      color: var(--text);
+    }
+
+    /* Category badge */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 7px; font-size: 9.5px; font-weight: 600;
+      letter-spacing: 0.05em; white-space: nowrap;
+    }
+    .badge .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+    .bp { color: var(--cat-personal);   background: rgba(59,130,246,0.11); }
+    .bf { color: var(--cat-financial);  background: rgba(34,197,94,0.11); }
+    .bj { color: var(--cat-projects);   background: rgba(6,182,212,0.11); }
+    .ba { color: var(--cat-admin);      background: rgba(168,85,247,0.11); }
+    .bu { color: var(--cat-automation); background: rgba(245,158,11,0.11); }
+
+    /* Status badge */
+    .sbadge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em;
+      cursor: pointer; padding: 3px 0; transition: opacity 0.15s;
+    }
+    .sbadge:hover { opacity: 0.65; }
+    .sbadge .dot  { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    .sn { color: var(--st-new); }
+    .so { color: var(--st-ongoing); }
+    .sd { color: var(--st-done); }
+    .sp { color: var(--st-pinnable); }
+
+    /* Expand row */
+    .xrow td { padding: 0 12px; overflow: hidden; }
+    .xbody {
+      padding: 10px 0 14px;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .x-label {
+      font-size: 9.5px; color: var(--text-muted);
+      letter-spacing: 0.09em; flex-shrink: 0; margin-top: 1px;
+    }
+    .x-action { font-size: 11.5px; color: var(--green); line-height: 1.55; }
+    .conf-wrap {
+      display: flex; align-items: center; gap: 8px; margin-top: 7px;
+    }
+    .conf-bar  {
+      width: 80px; height: 2px; background: var(--border-2);
+    }
+    .conf-fill { height: 100%; background: var(--green); }
+    .conf-lbl  { font-size: 9.5px; color: var(--text-muted); }
+    .model-lbl { font-size: 9.5px; color: var(--text-dim); margin-left: 6px; }
+
+    /* Delete button */
+    .del-btn {
+      opacity: 0; background: none; border: none;
+      color: #ef4444; font-size: 13px;
+      cursor: pointer; padding: 0 4px; font-family: var(--font);
+      transition: opacity 0.15s;
+    }
+    tr:hover .del-btn { opacity: 0.4; }
+    .del-btn:hover    { opacity: 1 !important; }
+
+    /* Empty state */
+    .empty { text-align: center; padding: 56px 20px; color: var(--text-muted); }
+    .empty .e-title {
+      font-size: 13px; color: var(--text-dim);
+      margin-bottom: 8px; letter-spacing: 0.06em;
+    }
+    .empty .e-sub { font-size: 10.5px; }
+
+    /* ── Bottom Bar ──────────────────────────────────────────────── */
+    .bot-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 14px; border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .bot-count { font-size: 10.5px; color: var(--text-muted); }
+
+    .btn-add {
+      background: none; border: 1px solid var(--border-2);
+      color: var(--text-muted); font-family: var(--font); font-size: 10.5px;
+      padding: 4px 12px; cursor: pointer; letter-spacing: 0.04em;
+      transition: all 0.15s;
+    }
+    .btn-add:hover {
+      color: var(--green);
+      border-color: rgba(57,255,20,0.25);
+      background: var(--green-dim);
+    }
+
+    /* ── Toast ───────────────────────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 54px; right: 14px;
+      background: var(--surface-3); border: 1px solid var(--border-2);
+      color: var(--text); font-size: 10.5px; font-family: var(--font);
+      padding: 7px 13px; max-width: 320px;
+      opacity: 0; transform: translateY(6px);
+      transition: all 0.2s; z-index: 200; pointer-events: none;
+    }
+    #toast.show   { opacity: 1; transform: none; }
+    #toast.ok     { border-left: 2px solid var(--green); }
+    #toast.err    { border-left: 2px solid #ef4444; }
+
+    /* ── Row entry animation ─────────────────────────────────────── */
+    @keyframes rowIn {
+      from { opacity: 0; transform: translateY(-3px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .row-in { animation: rowIn 0.22s ease forwards; }
+
+    /* ── Scrollbar ───────────────────────────────────────────────── */
+    ::-webkit-scrollbar       { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-2); }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ══ HEADER ══════════════════════════════════════════════ -->
+  <header>
+    <div class="brand">
+      <div class="brand-box">⊕</div>
+      <span class="brand-name">BRAINDUMP.AI</span>
+    </div>
+    <span class="breadcrumb">// personal: ADD</span>
+    <div class="h-sep"></div>
+
+    <div class="h-status" id="h-status">
+      <!-- JS populated -->
+    </div>
+
+    <div class="h-nav">
+      <button class="nav-btn active">DUMP</button>
+      <button class="nav-btn">REVIEW</button>
+      <button class="nav-btn">TOOLS</button>
+      <button class="btn-publish">Publish</button>
+    </div>
+  </header>
+
+  <!-- ══ TERMINAL ════════════════════════════════════════════ -->
+  <section class="terminal">
+    <div class="term-header">
+      <span class="term-title">BRAINDUMP TERMINAL</span>
+      <span class="term-hint">CTRL+ENTER to process</span>
+    </div>
+
+    <textarea id="dump-in" class="dump-area"
+      placeholder="Just type. Don't organise. Stream of consciousness is fine.&#10;&#10;e.g. need to call dentist, thinking about building a discord bot, invest in ETFs, kevin website is long overdue, feeling a bit burnt out, gym Mon/Wed/Fri goal, automate my morning routine somehow..."
+      spellcheck="false"></textarea>
+
+    <div class="term-footer">
+      <span class="t-count"><span class="n" id="t-cnt">0</span> thoughts detected</span>
+      <button class="btn-proc" id="proc-btn" onclick="processDump()">
+        <span class="btn-ico">⊕</span>
+        <div class="spin"></div>
+        PROCESS DUMP
+      </button>
+    </div>
+  </section>
+
+  <!-- ══ FILTER BAR ══════════════════════════════════════════ -->
+  <div class="filter-bar">
+    <div class="cat-tabs" id="cat-tabs"><!-- JS --></div>
+    <div class="f-div"></div>
+    <div class="stat-btns" id="stat-btns"><!-- JS --></div>
+  </div>
+
+  <!-- ══ TABLE ═══════════════════════════════════════════════ -->
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="col-cb">▢</th>
+          <th class="col-id">ID</th>
+          <th class="col-th">THOUGHT</th>
+          <th class="col-cat">CATEGORY</th>
+          <th class="col-st">STATUS</th>
+          <th class="col-dt">DATE</th>
+          <th class="col-del"></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"><!-- JS --></tbody>
+    </table>
+  </div>
+
+  <!-- ══ BOTTOM BAR ══════════════════════════════════════════ -->
+  <div class="bot-bar">
+    <span class="bot-count" id="bot-count">Showing 0 of 0 items</span>
+    <button class="btn-add" onclick="focusDump()">+ ADD THOUGHTS</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<script>
+"use strict";
+
+const API = '/api';
+
+// ── State ─────────────────────────────────────────────────────
+let thoughts  = [];
+let filterCat = 'ALL';
+let filterSt  = 'ALL';
+let expanded  = null;
+
+// ── Constants ─────────────────────────────────────────────────
+const CATS = ['ALL','PERSONAL','FINANCIAL','PROJECTS','ADMIN','AUTOMATION'];
+const STS  = ['ALL','NEW','ONGOING','DONE','PINNABLE'];
+
+const CAT_ICON = {
+  ALL:'◈', PERSONAL:'◎', FINANCIAL:'$',
+  PROJECTS:'◇', ADMIN:'≡', AUTOMATION:'⚡'
+};
+
+const CAT_CLS = {
+  PERSONAL:'bp', FINANCIAL:'bf', PROJECTS:'bj', ADMIN:'ba', AUTOMATION:'bu'
+};
+
+const ST_CLS = { NEW:'sn', ONGOING:'so', DONE:'sd', PINNABLE:'sp' };
+
+const ST_DOT = {
+  NEW:'var(--st-new)', ONGOING:'var(--st-ongoing)',
+  DONE:'var(--st-done)', PINNABLE:'var(--st-pinnable)'
+};
+
+const CAT_DOT = {
+  PERSONAL:'var(--cat-personal)', FINANCIAL:'var(--cat-financial)',
+  PROJECTS:'var(--cat-projects)', ADMIN:'var(--cat-admin)',
+  AUTOMATION:'var(--cat-automation)'
+};
+
+const ST_CYCLE = {NEW:'ONGOING', ONGOING:'DONE', DONE:'PINNABLE', PINNABLE:'NEW'};
+
+// ── Init ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  buildFilters();
+  loadThoughts();
+
+  const ta = document.getElementById('dump-in');
+  ta.addEventListener('input', updateCount);
+  ta.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.key === 'Enter') processDump();
+  });
+});
+
+// ── API ───────────────────────────────────────────────────────
+async function loadThoughts() {
+  try {
+    const r = await fetch(`${API}/thoughts`);
+    const d = await r.json();
+    thoughts = d.thoughts || [];
+    renderAll();
+  } catch {
+    toast('Could not reach API — is the server running?', 'err');
+  }
+}
+
+async function processDump() {
+  const text = document.getElementById('dump-in').value.trim();
+  if (!text) { toast('Nothing to process — type something first', 'err'); return; }
+
+  setLoading(true);
+  try {
+    const r = await fetch(`${API}/process-dump`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ text })
+    });
+    const d = await r.json();
+    const incoming = d.thoughts || [];
+
+    thoughts = [...incoming, ...thoughts];
+    document.getElementById('dump-in').value = '';
+    updateCount();
+    renderAll();
+
+    const ms = Math.round(d.processing_time_ms || 0);
+    const tb = d.tier_breakdown || {};
+    toast(`${incoming.length} thought${incoming.length!==1?'s':''} processed in ${ms}ms  [T1:${tb.tier1_used||0} T2:${tb.tier2_used||0} T3:${tb.tier3_used||0}]`, 'ok');
+  } catch(e) {
+    toast('Processing failed — check server logs', 'err');
+  } finally {
+    setLoading(false);
+  }
+}
+
+async function cycleStatus(id, cur, e) {
+  e.stopPropagation();
+  const next = ST_CYCLE[cur] || 'NEW';
+  try {
+    await fetch(`${API}/thoughts/${id}`, {
+      method:'PATCH',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ status: next })
+    });
+    const t = thoughts.find(x => x.id === id);
+    if (t) t.status = next;
+    renderAll();
+  } catch { toast('Update failed', 'err'); }
+}
+
+async function deleteTh(id, e) {
+  e.stopPropagation();
+  try {
+    await fetch(`${API}/thoughts/${id}`, { method:'DELETE' });
+    thoughts = thoughts.filter(x => x.id !== id);
+    if (expanded === id) expanded = null;
+    renderAll();
+    toast('Thought removed', 'ok');
+  } catch { toast('Delete failed', 'err'); }
+}
+
+// ── Render ────────────────────────────────────────────────────
+function renderAll() {
+  renderCatTabs();
+  renderStatBtns();
+  renderHeaderStatus();
+  renderTable();
+}
+
+function filtered() {
+  return thoughts.filter(t =>
+    (filterCat === 'ALL' || t.category === filterCat) &&
+    (filterSt  === 'ALL' || t.status   === filterSt)
+  );
+}
+
+function counts() {
+  const cc = { ALL: thoughts.length };
+  const sc = { ALL: thoughts.length };
+  for (const t of thoughts) {
+    cc[t.category] = (cc[t.category] || 0) + 1;
+    sc[t.status]   = (sc[t.status]   || 0) + 1;
+  }
+  return { cc, sc };
+}
+
+function renderCatTabs() {
+  const { cc } = counts();
+  document.getElementById('cat-tabs').innerHTML = CATS.map(c => `
+    <button class="c-tab${filterCat===c?' on':''}" onclick="setCat('${c}')">
+      <span>${CAT_ICON[c]||''}</span> ${c}
+      <span class="c-cnt">${cc[c]||0}</span>
+    </button>`).join('');
+}
+
+function renderStatBtns() {
+  const { sc } = counts();
+  document.getElementById('stat-btns').innerHTML = STS.map(s => {
+    const dot = s!=='ALL'
+      ? `<span class="dot" style="background:${ST_DOT[s]}"></span>`
+      : '';
+    const cnt = s!=='ALL'
+      ? `<span style="color:var(--text-muted);font-size:9px">${sc[s]||0}</span>`
+      : '';
+    return `<button class="s-btn${filterSt===s?' on':''}" onclick="setSt('${s}')">
+      ${dot}${s}${cnt}</button>`;
+  }).join('');
+}
+
+function renderHeaderStatus() {
+  const { sc } = counts();
+  const items = [
+    { k:'NEW',  c:'var(--st-new)' },
+    { k:'ONGOING',  c:'var(--st-ongoing)' },
+    { k:'DONE',     c:'var(--st-done)' },
+    { k:'PINNABLE', c:'var(--st-pinnable)' },
+  ];
+  document.getElementById('h-status').innerHTML = items
+    .filter(i => sc[i.k])
+    .map(i => `<span class="st-pill">
+      <span class="dot" style="background:${i.c}"></span>
+      <span class="n">${sc[i.k]}</span> ${i.k}
+    </span>`).join('');
+}
+
+function renderTable() {
+  const rows = filtered();
+  document.getElementById('bot-count').textContent =
+    `Showing ${rows.length} of ${thoughts.length} items`;
+
+  const tbody = document.getElementById('tbody');
+
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="7">
+      <div class="empty">
+        <div class="e-title">${thoughts.length===0
+          ? '// NO THOUGHTS DUMPED YET'
+          : '// NO THOUGHTS MATCH FILTER'}</div>
+        <div class="e-sub">${thoughts.length===0
+          ? 'Type something above and hit PROCESS DUMP'
+          : 'Clear the category or status filter'}</div>
+      </div></td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = rows.map((t, i) => buildRow(t, i)).join('');
+}
+
+function buildRow(t, i) {
+  const cc  = CAT_CLS[t.category]  || '';
+  const sc  = ST_CLS[t.status]     || '';
+  const sd  = ST_DOT[t.status]     || '#888';
+  const cd  = CAT_DOT[t.category]  || '#888';
+  const exp = expanded === t.id;
+  const pct = Math.round((t.confidence||0) * 100);
+
+  const main = `
+    <tr class="${exp?'open-row':''} ${i===0?'row-in':''}"
+        onclick="toggleExp('${t.id}')">
+      <td class="col-cb"><span style="color:var(--text-dim)">▢</span></td>
+      <td class="col-id td-id">${h(t.id)}</td>
+      <td class="col-th td-text">${h(t.thought)}</td>
+      <td class="col-cat">
+        <span class="badge ${cc}">
+          <span class="dot" style="background:${cd}"></span>${t.category}
+        </span>
+      </td>
+      <td class="col-st">
+        <span class="sbadge ${sc}"
+              onclick="cycleStatus('${t.id}','${t.status}',event)"
+              title="Click to cycle status">
+          <span class="dot" style="background:${sd}"></span>${t.status}
+        </span>
+      </td>
+      <td class="col-dt" style="color:var(--text-muted);font-size:9.5px">${t.date||''}</td>
+      <td class="col-del">
+        <button class="del-btn"
+                onclick="deleteTh('${t.id}',event)"
+                title="Delete">✕</button>
+      </td>
+    </tr>`;
+
+  const xrow = exp ? `
+    <tr class="xrow">
+      <td colspan="7">
+        <div class="xbody">
+          <span class="x-label">ACTION →</span>
+          <div style="flex:1">
+            <div class="x-action">${h(t.suggested_action||'—')}</div>
+            <div class="conf-wrap">
+              <span class="conf-lbl">Confidence</span>
+              <div class="conf-bar">
+                <div class="conf-fill" style="width:${pct}%"></div>
+              </div>
+              <span class="conf-lbl">${pct}%</span>
+              <span class="model-lbl">${h(t.model_used||'')}</span>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>` : '';
+
+  return main + xrow;
+}
+
+// ── Interactions ──────────────────────────────────────────────
+function buildFilters() { renderCatTabs(); renderStatBtns(); }
+
+function setCat(c) { filterCat = c; renderAll(); }
+function setSt(s)  { filterSt  = s; renderAll(); }
+
+function toggleExp(id) {
+  expanded = expanded === id ? null : id;
+  renderTable();
+}
+
+function updateCount() {
+  const v = document.getElementById('dump-in').value.trim();
+  const n = v ? v.split('\n').filter(l => l.trim().length > 4).length : 0;
+  document.getElementById('t-cnt').textContent = n;
+}
+
+function setLoading(on) {
+  const b = document.getElementById('proc-btn');
+  b.disabled = on;
+}
+
+function focusDump() {
+  document.getElementById('dump-in').focus();
+  toast('Type your thought in the terminal above and hit PROCESS DUMP', 'ok');
+}
+
+// ── Utilities ─────────────────────────────────────────────────
+function h(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+let _tt;
+function toast(msg, type='ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className   = `show ${type}`;
+  clearTimeout(_tt);
+  _tt = setTimeout(() => el.classList.remove('show'), 3800);
+}
+</script>
+</body>
+</html>

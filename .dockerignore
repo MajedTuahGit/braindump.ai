@@ -1,0 +1,40 @@
+# ── Virtual environments ─────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── Python bytecode ──────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ── Large model artifacts (mounted as volumes instead) ────────
+models/teacher_bert/
+models/student_distilled/
+models/student_pruned/
+models/student_quantized.pt
+models/student_tokenizer/
+models/tier1_svm.pkl
+
+# ── Database (mounted as volume) ─────────────────────────────
+db/braindump.db
+
+# ── Generated training data ───────────────────────────────────
+training/dataset_augmented.json
+training/splits/
+
+# ── IDE / OS ─────────────────────────────────────────────────
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ── Git ───────────────────────────────────────────────────────
+.git/
+.gitignore
+*.md
+
+# ── Existing Docker artifacts ─────────────────────────────────
+docker-compose.yml
+Dockerfile
