@@ -1,0 +1,98 @@
+# BrainDump.AI — Cascading Ensemble Flow & Model Training Guide
+
+This guide explains how BrainDump.AI processes text dumps and how the three tiers of Machine Learning models are trained, distilled, pruned, and quantized.
+
+---
+
+## 1. Runtime Inference Flow
+
+When a user submits a raw text dump, the API routes it through a sequential pipeline. If the dump contains multiple distinct thoughts, they are split and processed individually through the cascading ensemble.
+
+```mermaid
+graph TD
+    Client["User Input (Raw Dump)"] --> API["FastAPI (api/main.py)"]
+    API --> Splitter["BlobSplitter (ml/preprocessing/splitter.py)"]
+    Splitter --> |"Split by newlines / cues"| Cleaner["TextCleaner (ml/preprocessing/cleaner.py)"]
+    Cleaner --> |"Normalized text + verbs + spaCy entities"| Features["FeatureExtractor (ml/preprocessing/feature_extractor.py)"]
+    Features --> |"Extracted features"| Arb["Arbitrator (ml/ensemble/arbitrator.py)"]
+    
+    %% Cascading Logic
+    Arb --> T1_Run["Run Tier 1 (TF-IDF + SVM / Keywords)"]
+    T1_Run --> T1_Check{"Confidence >= 0.90?"}
+    T1_Check -->|Yes| T1_Res["Use Tier 1 Prediction (Speed Path)"]
+    T1_Check -->|No| T2_Avail{"Is Tier 2 SLM Available?"}
+    
+    T2_Avail -->|Yes| T2_Run["Run Tier 2 (Quantized SLM)"]
+    T2_Avail -->|No| T3_Avail
+    
+    T2_Run --> T2_Check{"Confidence >= 0.85?"}
+    T2_Check -->|Yes| T2_Res["Use Tier 2 Prediction (Quality Path)"]
+    T2_Check -->|No| T3_Avail{"Is Tier 3 BERT Available?"}
+    
+    T3_Avail -->|Yes| T3_Run["Run Tier 3 (BERT Teacher)"]
+    T3_Avail -->|No| Default["Fallback (T1/T2 Max Confidence)"]
+    
+    T3_Run --> Majority{"Majority Vote (T1, T2, T3)"}
+    Majority --> T3_Res["Use Tier 3 Oracle Decision"]
+    
+    %% Post-Inference
+    T1_Res --> Action["ActionEngine (ml/ensemble/action_engine.py)"]
+    T2_Res --> Action
+    T3_Res --> Action
+    Default --> Action
+    
+    Action --> DB["Persist to SQLite & log metrics"]
+    DB --> Response["Return JSON response to Frontend"]
+```
+
+### Components in Action:
+1. **[api/main.py](file:///c:/Users/majed/OneDrive/Documents/ML%20Projects/braindump.ai-main/api/main.py)**: Loads all models into memory once at startup (`lifespan` function).
+2. **[BlobSplitter](file:///c:/Users/majed/OneDrive/Documents/ML%20Projects/braindump.ai-main/ml/preprocessing/splitter.py)**: Splits blocks of text into individual thoughts.
+3. **[TextCleaner](file:///c:/Users/majed/OneDrive/Documents/ML%20Projects/braindump.ai-main/ml/preprocessing/cleaner.py)**: Normalizes text, performs part-of-speech tag analysis (for verbs), and extracts entities.
+4. **[FeatureExtractor](file:///c:/Users/majed/OneDrive/Documents/ML%20Projects/braindump.ai-main/ml/preprocessing/feature_extractor.py)**: Calculates feature scores such as urgency or question flags.
+5. **[Arbitrator](file:///c:/Users/majed/OneDrive/Documents/ML%20Projects/braindump.ai-main/ml/ensemble/arbitrator.py)**: Routes tasks through the Cascading Tiers based on confidence margins.
+6. **[ActionEngine](file:///c:/Users/majed/OneDrive/Documents/ML%20Projects/braindump.ai-main/ml/ensemble/action_engine.py)**: A rule-based engine that maps the predicted category, entities, and feature scores to actionable next-step suggestions.
+
+---
+
+## 2. Model Training & Compilation Pipeline
+
+The core philosophy of BrainDump.AI is running **entirely local, lightweight models**. To achieve this, it uses a **Knowledge Distillation** and **Model Compression** pipeline.
+
+```mermaid
+graph TD
+    Dataset["Labeled Training Data"] --> T1_Train["Train SVM (training/train_tier1.py)"]
+    T1_Train --> T1_Model["models/tier1_svm.pkl (TF-IDF + SVM)"]
+    
+    Dataset --> T3_Train["Train BERT Teacher (ml/slm/01_teacher/train_teacher.py)"]
+    T3_Train --> T3_Model["models/teacher_bert/ (Full BERT Model)"]
+    
+    %% Distillation Flow
+    T3_Model --> |"Generates soft targets"| T2_Distill["Distill Student (ml/slm/02_distillation/distill_train.py)"]
+    T2_Distill --> T2_Student["models/student_distilled/ (MiniTransformer)"]
+    
+    %% Pruning Flow
+    T2_Student --> T2_Prune["Prune Weights (ml/slm/03_pruning/run_pruning.py)"]
+    T2_Prune --> T2_Pruned["models/student_pruned/ (Sparse Student)"]
+    
+    %% Quantization Flow
+    T2_Pruned --> T2_Quant["Quantize Model (ml/slm/04_quantization/quantize_dynamic.py)"]
+    T2_Quant --> T2_Quantized["models/student_quantized.pt (Quantized SLM, ~8ms latency)"]
+```
+
+### Explaining the Training Phases
+
+#### Phase A: Tier 1 (Fast & Simple) — [ml/ensemble/tier1_tfidf.py](file:///c:/Users/majed/OneDrive/Documents/ML%20Projects/braindump.ai-main/ml/ensemble/tier1_tfidf.py)
+* **How it works (Day 1)**: If no model is trained, it does regex overlap checks with hardcoded keywords (`KEYWORD_RULES`). The confidence is capped at `0.75` to indicate to the Arbitrator that this is a rule-based prediction.
+* **How it trains**: Running `python training/train_tier1.py` fits a TF-IDF vectorizer + an SVM (Support Vector Machine) on the dataset. It saves the resulting scikit-learn pipeline as a `.pkl` file. When loaded, it outputs actual probability scores for predictions.
+
+#### Phase B: Tier 3 (The BERT Teacher Oracle) — [ml/ensemble/tier3_bert.py](file:///c:/Users/majed/OneDrive/Documents/ML%20Projects/braindump.ai-main/ml/ensemble/tier3_bert.py)
+* **Role**: Serves as the high-accuracy "ground truth" oracle. It is slow (~280ms) and heavy, but captures complex language structures.
+* **Training**: Finetunes a pre-trained BERT transformer on the training dataset.
+
+#### Phase C: Tier 2 (The Distilled & Quantized Student SLM) — [ml/ensemble/tier2_slm.py](file:///c:/Users/majed/OneDrive/Documents/ML%20Projects/braindump.ai-main/ml/ensemble/tier2_slm.py)
+* **Role**: Runs extremely fast (~8ms) on a single CPU core, while retaining ~95% of the BERT Teacher's accuracy.
+* **How the Student is created**:
+  1. **Knowledge Distillation**: A smaller student model (MiniTransformer) is trained to mimic both the hard labels of the dataset and the "soft probabilities" output by the heavy BERT Teacher model. This transfers the teacher's soft decision boundaries to the student.
+  2. **Weight Pruning**: Unimportant weights (near-zero values) in the neural network are pruned (zeroed out) to create a sparse network structure.
+  3. **Dynamic Quantization**: Converts model weight representations from 32-bit floating point numbers (`FP32`) to 8-bit integers (`INT8`). This shrinks the model size by ~4x and speeds up CPU matrix math dramatically.

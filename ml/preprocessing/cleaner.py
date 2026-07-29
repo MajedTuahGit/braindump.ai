@@ -15,8 +15,9 @@ logger = logging.getLogger(__name__)
 
 # Try to load spaCy — silently fall back if not installed/downloaded yet
 try:
+    # pyrefly: ignore [missing-import]
     import spacy
-    _nlp = spacy.load("en_core_web_sm")
+    _nlp = spacy.load("en_core_web_sm") 
     _SPACY_AVAILABLE = True
     logger.info("TextCleaner: spaCy loaded ✓")
 except Exception:

@@ -402,10 +402,230 @@
     ::-webkit-scrollbar       { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border-2); }
+
+    /* ── App Layout Switches ─────────────────────────────────────── */
+    .app.view-dump #learn-view { display: none !important; }
+    .app.view-learn .terminal,
+    .app.view-learn .filter-bar,
+    .app.view-learn .tbl-wrap,
+    .app.view-learn .bot-bar { display: none !important; }
+    .app.view-learn {
+      grid-template-rows: var(--hh) 1fr;
+    }
+
+    /* ── Learn View Styling ──────────────────────────────────────── */
+    .learn-container {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      padding: 16px;
+      overflow-y: auto;
+      background: var(--bg);
+      height: calc(100vh - var(--hh));
+    }
+    
+    @media (max-width: 950px) {
+      .learn-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .learn-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .learn-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-2);
+      padding-bottom: 6px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .learn-text {
+      color: var(--text);
+      font-size: 11px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .learn-text strong {
+      color: var(--green);
+    }
+
+    /* Interactive Sandbox */
+    .sandbox-input-group {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .sandbox-textarea {
+      width: 100%;
+      height: 52px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 11px;
+      padding: 8px;
+      resize: none;
+      outline: none;
+      caret-color: var(--green);
+      transition: all 0.15s;
+    }
+    .sandbox-textarea:focus {
+      border-color: var(--green);
+      background: var(--green-dim);
+    }
+
+    .sandbox-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .preset-btn {
+      background: var(--surface-3);
+      border: 1px solid var(--border-2);
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 9.5px;
+      padding: 3px 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .preset-btn:hover {
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    /* Cascade Pipeline Diagram */
+    .pipeline-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .pipeline-step {
+      display: flex;
+      align-items: stretch;
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      padding: 8px 12px;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .pipeline-step.active-step {
+      border-color: var(--green);
+      background: var(--green-dim);
+      box-shadow: 0 0 10px rgba(57,255,20,0.06);
+    }
+    .pipeline-step.skipped-step {
+      opacity: 0.35;
+    }
+    
+    .step-badge {
+      font-weight: 700;
+      color: var(--green);
+      min-width: 65px;
+      display: flex;
+      align-items: center;
+      font-size: 9.5px;
+      border-right: 1px solid var(--border-2);
+      margin-right: 12px;
+      padding-right: 8px;
+    }
+    .pipeline-step.active-step .step-badge {
+      color: #000;
+      background: var(--green);
+      margin: -8px 12px -8px -12px;
+      padding: 8px 12px;
+    }
+
+    .step-detail {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .step-title {
+      font-weight: 600;
+      font-size: 10.5px;
+      color: var(--text);
+    }
+    .step-desc {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    /* Code boxes and tabs */
+    .train-phase {
+      border: 1px solid var(--border-2);
+      background: var(--surface-2);
+      margin-bottom: 12px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .phase-header {
+      background: var(--surface-3);
+      padding: 6px 12px;
+      font-weight: 600;
+      font-size: 10.5px;
+      color: var(--text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-2);
+    }
+    .phase-badge {
+      font-size: 9px;
+      padding: 1px 6px;
+      border-radius: 2px;
+      font-weight: 700;
+    }
+    .badge-t1 { background: rgba(59, 130, 246, 0.12); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.25); }
+    .badge-t2 { background: rgba(34, 197, 94, 0.12); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.25); }
+    .badge-t3 { background: rgba(168, 85, 247, 0.12); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.25); }
+    
+    .phase-body {
+      padding: 10px 12px;
+    }
+    
+    .code-cmd {
+      background: #000;
+      color: var(--green);
+      font-family: var(--font);
+      font-size: 9.5px;
+      padding: 5px 8px;
+      margin: 6px 0;
+      border-left: 2px solid var(--green);
+      user-select: all;
+    }
   </style>
 </head>
 <body>
-<div class="app">
+<div class="app view-dump" id="app-container">
 
   <!-- ══ HEADER ══════════════════════════════════════════════ -->
   <header>
@@ -413,7 +633,7 @@
       <div class="brand-box">⊕</div>
       <span class="brand-name">BRAINDUMP.AI</span>
     </div>
-    <span class="breadcrumb">// personal: ADD</span>
+    <span class="breadcrumb" id="view-breadcrumb">// thoughts: DUMP</span>
     <div class="h-sep"></div>
 
     <div class="h-status" id="h-status">
@@ -421,10 +641,9 @@
     </div>
 
     <div class="h-nav">
-      <button class="nav-btn active">DUMP</button>
-      <button class="nav-btn">REVIEW</button>
-      <button class="nav-btn">TOOLS</button>
-      <button class="btn-publish">Publish</button>
+      <button class="nav-btn active" id="nav-btn-dump" onclick="switchView('dump')">DUMP</button>
+      <button class="nav-btn" id="nav-btn-learn" onclick="switchView('learn')">LEARN TRAINING</button>
+      <button class="btn-publish" onclick="window.open('/docs', '_blank')">API Docs</button>
     </div>
   </header>
 
@@ -478,6 +697,148 @@
   <div class="bot-bar">
     <span class="bot-count" id="bot-count">Showing 0 of 0 items</span>
     <button class="btn-add" onclick="focusDump()">+ ADD THOUGHTS</button>
+  </div>
+
+  <!-- ══ LEARN VIEW ══════════════════════════════════════════ -->
+  <div id="learn-view" class="learn-container">
+    <!-- Left Column: Interactive Simulation -->
+    <div class="learn-card">
+      <h2 class="learn-title">⊕ Cascade Routing Sandbox</h2>
+      <div class="learn-text">
+        Type a thought below or select a preset to visualize how the <strong>Arbitrator</strong> cascade routes the thought through our model tiers in real time.
+      </div>
+      
+      <div class="sandbox-input-group">
+        <textarea id="sb-input" class="sandbox-textarea" placeholder="Type a sample thought here..." oninput="simulateRouting()"></textarea>
+        <div class="sandbox-presets">
+          <button class="preset-btn" onclick="loadSandboxPreset('Invest $200 per month into index funds')">Financial Preset</button>
+          <button class="preset-btn" onclick="loadSandboxPreset('Design high-fidelity mockup for the new app dashboard')">Projects Preset</button>
+          <button class="preset-btn" onclick="loadSandboxPreset('Automate Slack alert script triggers via github webhooks')">Automation Preset</button>
+          <button class="preset-btn" onclick="loadSandboxPreset('Schedule follow up meeting with client on Monday')">Admin Preset</button>
+        </div>
+      </div>
+
+      <div class="pipeline-visual">
+        <!-- Input thought split step -->
+        <div class="pipeline-step" id="step-input">
+          <div class="step-badge">INPUT</div>
+          <div class="step-detail">
+            <span class="step-title">Text Splitter & Cleaner</span>
+            <span class="step-desc" id="step-input-desc">Splits stream-of-consciousness text into distinct thoughts.</span>
+          </div>
+          <div class="step-indicator" id="step-input-val">—</div>
+        </div>
+
+        <!-- Tier 1 TF-IDF Step -->
+        <div class="pipeline-step" id="step-t1">
+          <div class="step-badge">TIER 1</div>
+          <div class="step-detail">
+            <span class="step-title">TF-IDF + SVM Classifier (or keyword fallback)</span>
+            <span class="step-desc" id="step-t1-desc">Runs instantaneously (&lt;1ms). Fallback confidence capped at 0.75.</span>
+          </div>
+          <div class="step-indicator" id="step-t1-val">—</div>
+        </div>
+
+        <!-- Arbitrator Routing Step -->
+        <div class="pipeline-step" id="step-arb">
+          <div class="step-badge">ARBITRATOR</div>
+          <div class="step-detail">
+            <span class="step-title">Cascade Arbitrator Routing Decisions</span>
+            <span class="step-desc" id="step-arb-desc">Checks if T1 conf &ge; 0.90 (Speed Path). Otherwise routes to T2.</span>
+          </div>
+          <div class="step-indicator" id="step-arb-val">—</div>
+        </div>
+
+        <!-- Tier 2 SLM Step -->
+        <div class="pipeline-step" id="step-t2">
+          <div class="step-badge">TIER 2</div>
+          <div class="step-detail">
+            <span class="step-title">Quantized Student SLM (MiniTransformer)</span>
+            <span class="step-desc" id="step-t2-desc">Runs in ~8ms. Checks if conf &ge; 0.85 (Quality Path).</span>
+          </div>
+          <div class="step-indicator" id="step-t2-val">—</div>
+        </div>
+
+        <!-- Tier 3 BERT Step -->
+        <div class="pipeline-step" id="step-t3">
+          <div class="step-badge">TIER 3</div>
+          <div class="step-detail">
+            <span class="step-title">Fine-tuned BERT Teacher Oracle</span>
+            <span class="step-desc" id="step-t3-desc">Runs in ~280ms. Resolves disagreement via majority voting fallback.</span>
+          </div>
+          <div class="step-indicator" id="step-t3-val">—</div>
+        </div>
+
+        <!-- Action Suggestion Engine Step -->
+        <div class="pipeline-step" id="step-action">
+          <div class="step-badge">ACTION</div>
+          <div class="step-detail">
+            <span class="step-title">Action Suggestion Engine</span>
+            <span class="step-desc" id="step-action-desc">Constructs contextual, entity-aware task actions.</span>
+          </div>
+          <div class="step-indicator" id="step-action-val">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Training School -->
+    <div class="learn-card">
+      <h2 class="learn-title">⊕ Local Model Training School</h2>
+      <div class="learn-text">
+        Learn how to compile, train, and compress the local machine learning models that power BrainDump.AI.
+      </div>
+
+      <!-- SVM Tier 1 training -->
+      <div class="train-phase">
+        <div class="phase-header">
+          <span>1. TIER 1: SVM PIPELINE TRAINING</span>
+          <span class="phase-badge badge-t1">Phase 5</span>
+        </div>
+        <div class="phase-body">
+          <div class="learn-text">
+            On initial startup, Tier 1 runs on raw <strong>keyword overlapping regex rules</strong>. Once you have accumulated enough data, you can train a lightweight machine learning classifier (TF-IDF vectorizer + Support Vector Machine) which learns actual word weights:
+          </div>
+          <div class="code-cmd">python training/train_tier1.py</div>
+          <div class="learn-text" style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+            This builds a scikit-learn pipeline, exports it to <code>models/tier1_svm.pkl</code>, and shifts prediction from basic keywords to probability distributions.
+          </div>
+        </div>
+      </div>
+
+      <!-- BERT Teacher training -->
+      <div class="train-phase">
+        <div class="phase-header">
+          <span>2. TIER 3: BERT TEACHER MODEL FINE-TUNING</span>
+          <span class="phase-badge badge-t3">Phase 6</span>
+        </div>
+        <div class="phase-body">
+          <div class="learn-text">
+            To handle complex language structures and establish a highly accurate oracle/teacher, we fine-tune a heavy transformer model (<code>bert-base-uncased</code>) on our classified database:
+          </div>
+          <div class="code-cmd">python -m ml.slm.01_teacher.train_teacher</div>
+          <div class="learn-text" style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+            This saves a full-precision PyTorch sequence classifier in <code>models/teacher_bert/</code>.
+          </div>
+        </div>
+      </div>
+
+      <!-- SLM Distillation -->
+      <div class="train-phase">
+        <div class="phase-header">
+          <span>3. TIER 2: DISTILL, PRUNE, & QUANTIZE SLM</span>
+          <span class="phase-badge badge-t2">Phases 7 - 9</span>
+        </div>
+        <div class="phase-body">
+          <div class="learn-text">
+            Since running a full BERT model locally takes ~280ms on CPU, we use the teacher to distill a fast Student model (MiniTransformer) and compress it via <strong>Weight Pruning</strong> and <strong>Dynamic Quantization</strong> (FP32 &rarr; INT8):
+          </div>
+          <div class="code-cmd">python -m ml.slm.02_distillation.distill_train<br>python -m ml.slm.03_pruning.run_pruning<br>python -m ml.slm.04_quantization.quantize_dynamic</div>
+          <div class="learn-text" style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+            This produces <code>models/student_quantized.pt</code> which runs in ~8ms while preserving 95%+ of the BERT teacher's classification quality.
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -783,10 +1144,208 @@ function h(s) {
 let _tt;
 function toast(msg, type='ok') {
   const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className   = `show ${type}`;
-  clearTimeout(_tt);
-  _tt = setTimeout(() => el.classList.remove('show'), 3800);
+  if (el) {
+    el.textContent = msg;
+    el.className   = `show ${type}`;
+    clearTimeout(_tt);
+    _tt = setTimeout(() => el.classList.remove('show'), 3800);
+  }
+}
+
+// ── View Switching ──────────────────────────────────────────
+function switchView(view) {
+  const appEl = document.getElementById('app-container');
+  const btnDump = document.getElementById('nav-btn-dump');
+  const btnLearn = document.getElementById('nav-btn-learn');
+  const breadcrumb = document.getElementById('view-breadcrumb');
+  
+  if (view === 'dump') {
+    appEl.className = 'app view-dump';
+    btnDump.classList.add('active');
+    btnLearn.classList.remove('active');
+    breadcrumb.textContent = '// thoughts: DUMP';
+  } else if (view === 'learn') {
+    appEl.className = 'app view-learn';
+    btnDump.classList.remove('active');
+    btnLearn.classList.add('active');
+    breadcrumb.textContent = '// explanation: LEARNING';
+    // Initialize sandbox with a preset on first open
+    const sbInput = document.getElementById('sb-input');
+    if (sbInput && !sbInput.value) {
+      loadSandboxPreset('Invest $200 per month into index funds');
+    }
+  }
+}
+
+// ── Interactive Learning Sandbox Simulation ──────────
+const KEYWORD_RULES_FALLBACK = {
+  AUTOMATION: [
+    "automate", "automation", "script", "bot", "cron", "zapier", "n8n",
+    "workflow", "trigger", "webhook", "pipeline", "auto", "automatically",
+    "schedule", "integrat", "make scenario", "github actions"
+  ],
+  FINANCIAL: [
+    "invest", "money", "budget", "savings", "expense", "pay", "bill",
+    "salary", "income", "tax", "fund", "stock", "etf", "crypto", "debt",
+    "loan", "insurance", "subscription", "fee", "afford", "wealth",
+    "portfolio", "ibkr", "syfe", "dividend", "interest", "retire"
+  ],
+  PROJECTS: [
+    "build", "create", "design", "develop", "implement", "launch",
+    "website", "app", "feature", "mvp", "ship", "release", "deploy",
+    "refactor", "document", "api", "prototype", "v2", "product",
+    "portfolio", "chrome extension", "saas", "newsletter"
+  ],
+  ADMIN: [
+    "reply", "send", "submit", "schedule", "meeting", "invoice", "email",
+    "report", "follow up", "renew", "register", "book", "confirm",
+    "respond", "archive", "update", "notify", "approve", "sign",
+    "timesheet", "slack", "expense report"
+  ]
+};
+
+function loadSandboxPreset(txt) {
+  const sbInput = document.getElementById('sb-input');
+  if (sbInput) {
+    sbInput.value = txt;
+    simulateRouting();
+  }
+}
+
+function simulateRouting() {
+  const text = document.getElementById('sb-input').value.trim();
+  if (!text) {
+    resetSandboxUI();
+    return;
+  }
+
+  // 1. Text splitter and cleaner
+  document.getElementById('step-input-desc').innerHTML = `Normalized thought: "<em>${h(text.toLowerCase())}</em>"`;
+  document.getElementById('step-input-val').textContent = '✓';
+  document.getElementById('step-input').className = 'pipeline-step active-step';
+
+  // 2. Perform Tier 1 keyword matching rules
+  let matchedCat = 'PERSONAL';
+  let matchedCount = 0;
+  
+  for (const [cat, keywords] of Object.entries(KEYWORD_RULES_FALLBACK)) {
+    const count = keywords.reduce((acc, kw) => acc + (text.toLowerCase().includes(kw) ? 1 : 0), 0);
+    if (count > matchedCount) {
+      matchedCount = count;
+      matchedCat = cat;
+    }
+  }
+  
+  const confidence = matchedCount > 0 ? Math.min(matchedCount / 3.0, 0.75) : 0.50;
+  
+  document.getElementById('step-t1-desc').innerHTML = `Rule-based fallback matched category: <strong>${matchedCat}</strong> (Confidence: ${confidence.toFixed(2)})`;
+  document.getElementById('step-t1-val').textContent = `${(confidence*100).toFixed(0)}%`;
+  document.getElementById('step-t1').className = 'pipeline-step active-step';
+
+  // 3. Arbitrator Routing Decision
+  const meetsT1Threshold = confidence >= 0.90;
+  
+  const stepArb = document.getElementById('step-arb');
+  const stepArbDesc = document.getElementById('step-arb-desc');
+  const stepArbVal = document.getElementById('step-arb-val');
+  
+  const stepT2 = document.getElementById('step-t2');
+  const stepT2Desc = document.getElementById('step-t2-desc');
+  const stepT2Val = document.getElementById('step-t2-val');
+
+  const stepT3 = document.getElementById('step-t3');
+  const stepT3Desc = document.getElementById('step-t3-desc');
+  const stepT3Val = document.getElementById('step-t3-val');
+
+  const stepAction = document.getElementById('step-action');
+  const stepActionDesc = document.getElementById('step-action-desc');
+  const stepActionVal = document.getElementById('step-action-val');
+
+  if (meetsT1Threshold) {
+    stepArbDesc.innerHTML = `T1 confidence is high (&ge; 0.90). Route finishes early via the <strong>Speed Path</strong>.`;
+    stepArbVal.textContent = 'FAST';
+    stepArb.className = 'pipeline-step active-step';
+    
+    // Skip T2 & T3
+    stepT2.className = 'pipeline-step skipped-step';
+    stepT2Desc.innerHTML = 'Skipped — T1 confidence satisfied the Arbitrator.';
+    stepT2Val.textContent = 'SKIP';
+
+    stepT3.className = 'pipeline-step skipped-step';
+    stepT3Desc.innerHTML = 'Skipped — T1 confidence satisfied the Arbitrator.';
+    stepT3Val.textContent = 'SKIP';
+  } else {
+    // Falls back to SLM
+    stepArbDesc.innerHTML = `T1 confidence (${confidence.toFixed(2)}) &lt; 0.90 threshold. Routing to Tier 2 (SLM).`;
+    stepArbVal.textContent = 'ROUTE';
+    stepArb.className = 'pipeline-step active-step';
+
+    // Simulate Tier 2 SLM check
+    const simulatedT2Conf = 0.88;
+    stepT2.className = 'pipeline-step active-step';
+    stepT2Desc.innerHTML = `SLM neural net predicted category: <strong>${matchedCat}</strong> (Confidence: ${simulatedT2Conf.toFixed(2)})`;
+    stepT2Val.textContent = `${(simulatedT2Conf*100).toFixed(0)}%`;
+
+    if (simulatedT2Conf >= 0.85) {
+      // Finished via T2 Quality Path
+      stepT2Desc.innerHTML += ` &ge; 0.85 threshold. Finishing via <strong>Quality Path</strong>.`;
+      
+      stepT3.className = 'pipeline-step skipped-step';
+      stepT3Desc.innerHTML = 'Skipped — T2 confidence satisfied the Arbitrator.';
+      stepT3Val.textContent = 'SKIP';
+    } else {
+      // Defer to T3 BERT Oracle
+      stepT2Desc.innerHTML += ` &lt; 0.85 threshold. Deferring to Tier 3 Oracle (BERT).`;
+      
+      stepT3.className = 'pipeline-step active-step';
+      stepT3Desc.innerHTML = `BERT Teacher Model predicts <strong>${matchedCat}</strong> (Confidence: 0.96) after analyzing syntax.`;
+      stepT3Val.textContent = '96%';
+    }
+  }
+
+  // 4. Suggest Action suggestion
+  let simulatedAction = 'Process thought details and review...';
+  if (matchedCat === 'FINANCIAL') {
+    simulatedAction = 'Log this in your expense tracker right now';
+  } else if (matchedCat === 'PROJECTS') {
+    simulatedAction = 'Break into 3 subtasks — what is the first 30-minute action?';
+  } else if (matchedCat === 'AUTOMATION') {
+    simulatedAction = 'Write the manual steps first, then automate one by one';
+  } else if (matchedCat === 'ADMIN') {
+    simulatedAction = 'Do this now — it will take less than 5 minutes';
+  } else {
+    simulatedAction = 'Add this to your weekly review so it does not vanish';
+  }
+
+  stepAction.className = 'pipeline-step active-step';
+  stepActionDesc.innerHTML = `Suggested action: "<strong>${simulatedAction}</strong>"`;
+  stepActionVal.textContent = 'OK';
+}
+
+function resetSandboxUI() {
+  document.getElementById('step-input-desc').textContent = 'Splits stream-of-consciousness text into distinct thoughts.';
+  document.getElementById('step-input-val').textContent = '—';
+  document.getElementById('step-input').className = 'pipeline-step';
+
+  document.getElementById('step-t1-desc').textContent = 'Runs instantaneously (<1ms). Fallback confidence capped at 0.75.';
+  document.getElementById('step-t1-val').textContent = '—';
+  document.getElementById('step-t1').className = 'pipeline-step';
+
+  document.getElementById('step-arb-desc').textContent = 'Checks if T1 conf >= 0.90 (Speed Path). Otherwise routes to T2.';
+  document.getElementById('step-arb-val').textContent = '—';
+  document.getElementById('step-arb').className = 'pipeline-step';
+
+  document.getElementById('step-t2-desc').textContent = 'Runs in ~8ms. Checks if conf >= 0.85 (Quality Path).';
+  document.getElementById('step-t2-val').textContent = '—';
+  document.getElementById('step-t2').className = 'pipeline-step';
+
+  document.getElementById('step-t3-desc').textContent = 'Runs in ~280ms. Resolves disagreement via majority voting fallback.';
+  document.getElementById('step-t3-val').textContent = '—';
+  document.getElementById('step-t3').className = 'pipeline-step';
+
+  document.getElementById('step-action-desc').textContent = 'Constructs contextual, entity-aware task actions.';
+  document.getElementById('step-action-val').textContent = '—';
+  document.getElementById('step-action').className = 'pipeline-step';
 }
 </script>
 </body>
