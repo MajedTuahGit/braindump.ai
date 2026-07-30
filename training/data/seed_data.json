@@ -1,0 +1,510 @@
+[
+  {
+    "text": "I need to talk to mum about her health appointment",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "feeling anxious about meeting new people at the event tonight",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "journal: grateful for the walk this morning",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "call dad this weekend to catch up",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "I want to read more books this year at least one per month",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "thinking about getting back into the gym",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "need to fix my sleep schedule it's been terrible lately",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "relationship is feeling distant lately need to be more present",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "want to cook more at home and stop eating out so much",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "feeling burnt out from work need a holiday",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "journalling idea: what would my 80-year-old self say",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "learn to meditate properly not just once a week",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "catch up with old friend from uni haven't spoken in months",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "reflecting on how much I've grown this year",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "want to spend less time on social media",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "plan a weekend trip somewhere nearby with the family",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "need to be more patient with my brother",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "feeling overwhelmed with everything happening at once",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "want to get better at cooking Thai food",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "vision board idea for next year goals mindset travel",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "started reading atomic habits again it hits different now",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "need to process how I feel about the job change",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "gratitude for the people around me who support me",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "dog is getting old need to cherish time with her",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "want to get my driver's license sorted this year",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "check if IBKR dividend was deposited this month",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "syfe cash plus interest is lower than expected need to review",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "budget for next month: rent groceries transport subscriptions",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "review all subscriptions and cancel unused ones",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "set up emergency fund target 6 months of expenses",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "look into ETF dollar cost averaging strategy",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "salary increment coming up should allocate extra to investments",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "tax filing deadline is approaching need to gather documents",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "insurance renewal coming up compare quotes before renewing",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "crypto portfolio is down 20% hold or sell?",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "pay off credit card balance before the interest hits",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "track food expenses this week they've been too high",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "compound interest calculator savings goal 100k by 30",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "transfer money to savings account before spending it",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "check if Grab subscription is worth it vs paying per ride",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "retirement planning should open CPF voluntary contribution",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "stock watchlist AAPL NVDA MSFT review earnings next week",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "loan for the laptop calculate interest and payoff plan",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "side income from freelance needs to be declared in taxes",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "monthly net worth tracking spreadsheet needs updating",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "invest in index fund or robo-advisor comparison",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "need to pay mum back for groceries she covered",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "debt repayment strategy avalanche vs snowball method",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "portfolio rebalancing overweight in tech need more diversification",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "annual bonus planning where to allocate it wisely",
+    "label": "FINANCIAL"
+  },
+  {
+    "text": "build the braindump AI MVP and ship it by end of month",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "design the landing page for the chrome extension",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "implement dark mode for the web app",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "create a SaaS product around the meeting notes idea",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "refactor the auth module before adding new features",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "write documentation for the API endpoints",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "launch the newsletter side project this quarter",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "deploy the backend to fly.io and test production",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "build a portfolio website to showcase all my work",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "prototype the mobile app using React Native",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "v2 of the product needs a better onboarding flow",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "develop the chrome extension to capture meeting notes automatically",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "implement stripe payments into the SaaS product",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "code review PR for the new feature needs a second look",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "build a dashboard for real-time analytics",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "write a technical blog post about the ML pipeline architecture",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "create a public API for the braindump service",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "design system need consistent colors and typography",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "open source the CLI tool after cleaning up the code",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "release v1.0 with core features only no scope creep",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "build an AI summarizer for my daily journal entries",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "set up CI/CD pipeline for automatic deployments",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "implement search functionality with full-text indexing",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "mobile-first responsive redesign of the dashboard",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "build a browser extension that captures highlighted text",
+    "label": "PROJECTS"
+  },
+  {
+    "text": "reply to the client email about project scope",
+    "label": "ADMIN"
+  },
+  {
+    "text": "submit the timesheet before EOD Friday",
+    "label": "ADMIN"
+  },
+  {
+    "text": "schedule a team standup for Monday morning",
+    "label": "ADMIN"
+  },
+  {
+    "text": "send the invoice to the client for last month's work",
+    "label": "ADMIN"
+  },
+  {
+    "text": "follow up on the contract signing it's been a week",
+    "label": "ADMIN"
+  },
+  {
+    "text": "book dentist appointment overdue by 6 months",
+    "label": "ADMIN"
+  },
+  {
+    "text": "confirm the meeting room booking for Thursday",
+    "label": "ADMIN"
+  },
+  {
+    "text": "respond to Slack message from manager about the deadline",
+    "label": "ADMIN"
+  },
+  {
+    "text": "register for the conference before early bird ends",
+    "label": "ADMIN"
+  },
+  {
+    "text": "renew the domain name it expires next month",
+    "label": "ADMIN"
+  },
+  {
+    "text": "approve the vendor invoice in the system",
+    "label": "ADMIN"
+  },
+  {
+    "text": "sign the NDA and send it back to legal",
+    "label": "ADMIN"
+  },
+  {
+    "text": "archive old emails from 2024 that are cluttering inbox",
+    "label": "ADMIN"
+  },
+  {
+    "text": "notify team about office closure on public holiday",
+    "label": "ADMIN"
+  },
+  {
+    "text": "update LinkedIn profile with the new role",
+    "label": "ADMIN"
+  },
+  {
+    "text": "book flights for the business trip in August",
+    "label": "ADMIN"
+  },
+  {
+    "text": "expense report for the conference travel needs submitting",
+    "label": "ADMIN"
+  },
+  {
+    "text": "send birthday message to colleague it was yesterday",
+    "label": "ADMIN"
+  },
+  {
+    "text": "update the shared Google Drive with latest documents",
+    "label": "ADMIN"
+  },
+  {
+    "text": "cancel gym membership not using it anymore",
+    "label": "ADMIN"
+  },
+  {
+    "text": "renew passport it expires next year and need it for travel",
+    "label": "ADMIN"
+  },
+  {
+    "text": "set up out of office auto-reply for vacation week",
+    "label": "ADMIN"
+  },
+  {
+    "text": "fill in the performance review form for Q3",
+    "label": "ADMIN"
+  },
+  {
+    "text": "onboard new team member send them the welcome doc",
+    "label": "ADMIN"
+  },
+  {
+    "text": "submit medical claim receipts before the end of the month",
+    "label": "ADMIN"
+  },
+  {
+    "text": "automate the weekly report with a Python script and cron job",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "set up n8n workflow to auto-categorize emails into folders",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "create a zapier zap to post new blog articles to Twitter automatically",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "build a bot that scrapes job listings and sends me a daily digest",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "schedule the database backup script to run every night at 2am",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "webhook from Stripe to automatically update the CRM on payment",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "github actions pipeline to run tests on every pull request",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "write a script to auto-rename files in the downloads folder by date",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "integrate slack with github so PR updates appear in the team channel",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "make a make.com scenario that triggers when a form is submitted",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "auto-sync Notion database with Google Sheets every hour",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "build a telegram bot that reminds me of upcoming bill payments",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "set up automated testing pipeline with pytest and coverage reports",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "create a python script that auto-generates weekly Spotify playlists",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "workflow to automatically archive old Slack messages into Drive",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "build an RSS aggregator that auto-summarizes articles with AI",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "trigger n8n whenever a new row is added to the spreadsheet",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "set up cron to clear temp files and log old ones every Sunday",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "auto-deploy to production when tests pass on main branch",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "build a pipeline that auto-tags and organizes photos by month",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "create a monitoring script that alerts me if the server goes down",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "integrate calendar API to auto-block focus time every morning",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "write a script to batch-convert markdown notes to PDF",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "set up a nightly job to sync my local notes to cloud backup",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "build a browser automation bot to fill repetitive web forms",
+    "label": "AUTOMATION"
+  },
+  {
+    "text": "ask about scalling with hanny",
+    "label": "PERSONAL"
+  },
+  {
+    "text": "check how much is the car insurance",
+    "label": "FINANCIAL"
+  }
+]
