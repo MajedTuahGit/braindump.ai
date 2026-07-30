@@ -7,6 +7,8 @@ DELETE /api/thoughts/{id}         — remove a thought
 POST   /api/feedback              — submit a wrong-category correction
 """
 import logging
+import json
+from pathlib import Path
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -89,7 +91,7 @@ async def submit_feedback(
     feedback: FeedbackRequest,
     db:       Session = Depends(get_db),
 ):
-    """Record a user correction — feeds the retraining loop in later phases."""
+    """Record a user correction — updates the DB and the training dataset."""
     thought = db.query(Thought).filter(Thought.id == feedback.thought_id).first()
     if not thought:
         raise HTTPException(status_code=404, detail="Thought not found")
@@ -103,6 +105,40 @@ async def submit_feedback(
         original_category=original,
         correct_category=feedback.correct_category,
     ))
+    
+    # ── Update seed_data.json training set ──────────────────────────────────
+    try:
+        project_root = Path(__file__).resolve().parent.parent.parent
+        seed_data_path = project_root / "training" / "data" / "seed_data.json"
+        
+        if seed_data_path.exists():
+            with open(seed_data_path, "r", encoding="utf-8") as f:
+                dataset = json.load(f)
+            
+            # Look for exact matching text in the dataset
+            matched = False
+            for entry in dataset:
+                if entry["text"].strip().lower() == thought.thought.strip().lower():
+                    entry["label"] = feedback.correct_category
+                    matched = True
+                    break
+            
+            if not matched:
+                # Add new example
+                dataset.append({
+                    "text": thought.thought,
+                    "label": feedback.correct_category
+                })
+                
+            with open(seed_data_path, "w", encoding="utf-8") as f:
+                json.dump(dataset, f, indent=2)
+            logger.info("[API] Corrected category written to seed_data.json: %r -> %s", thought.thought, feedback.correct_category)
+        else:
+            logger.warning("[API] seed_data.json not found at %s. Correction not written to disk.", seed_data_path)
+            
+    except Exception as exc:
+        logger.error("[API] Failed to update seed_data.json: %s", exc)
+
     db.commit()
 
     return {

@@ -1,51 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BRAINDUMP.AI — Personal OS</title>
-  <meta name="description" content="Stream your consciousness. AI categorizes everything. No judgement, no structure required.">
+  <meta name="description"
+    content="Stream your consciousness. AI categorizes everything. No judgement, no structure required.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <style>
     /* ── Design System ──────────────────────────────────────────── */
     :root {
-      --bg:          #0a0a0a;
-      --surface:     #0f0f0f;
-      --surface-2:   #131313;
-      --surface-3:   #1a1a1a;
-      --border:      #1e1e1e;
-      --border-2:    #262626;
-      --text:        #c8c8c8;
-      --text-muted:  #484848;
-      --text-dim:    #282828;
-      --green:       #39ff14;
-      --green-dim:   rgba(57,255,20,0.06);
-      --green-glow:  rgba(57,255,20,0.15);
+      --bg: #0a0a0a;
+      --surface: #0f0f0f;
+      --surface-2: #131313;
+      --surface-3: #1a1a1a;
+      --border: #1e1e1e;
+      --border-2: #262626;
+      --text: #c8c8c8;
+      --text-muted: #484848;
+      --text-dim: #282828;
+      --green: #39ff14;
+      --green-dim: rgba(57, 255, 20, 0.06);
+      --green-glow: rgba(57, 255, 20, 0.15);
 
-      --cat-personal:    #3b82f6;
-      --cat-financial:   #22c55e;
-      --cat-projects:    #06b6d4;
-      --cat-admin:       #a855f7;
-      --cat-automation:  #f59e0b;
+      --cat-personal: #3b82f6;
+      --cat-financial: #22c55e;
+      --cat-projects: #06b6d4;
+      --cat-admin: #a855f7;
+      --cat-automation: #f59e0b;
 
-      --st-new:      #f97316;
-      --st-ongoing:  #3b82f6;
-      --st-done:     #22c55e;
+      --st-new: #f97316;
+      --st-ongoing: #3b82f6;
+      --st-done: #22c55e;
       --st-pinnable: #ec4899;
 
-      --font:        'JetBrains Mono', 'Courier New', monospace;
-      --hh:          46px;   /* header height  */
-      --th:          220px;  /* terminal height */
-      --fh:          42px;   /* filter bar      */
-      --bh:          42px;   /* bottom bar      */
+      --font: 'JetBrains Mono', 'Courier New', monospace;
+      --hh: 46px;
+      /* header height  */
+      --th: 220px;
+      /* terminal height */
+      --fh: 42px;
+      /* filter bar      */
+      --bh: 42px;
+      /* bottom bar      */
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html, body {
+    html,
+    body {
       height: 100%;
       background: var(--bg);
       color: var(--text);
@@ -81,10 +95,15 @@
     }
 
     .brand-box {
-      width: 18px; height: 18px;
+      width: 18px;
+      height: 18px;
       border: 1.5px solid var(--green);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--green); font-size: 10px; line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      font-size: 10px;
+      line-height: 1;
     }
 
     .brand-name {
@@ -94,154 +113,347 @@
       letter-spacing: 0.06em;
     }
 
-    .breadcrumb { color: var(--text-muted); font-size: 10.5px; }
+    .breadcrumb {
+      color: var(--text-muted);
+      font-size: 10.5px;
+    }
 
-    .h-sep { width: 1px; height: 18px; background: var(--border-2); flex-shrink: 0; }
+    .h-sep {
+      width: 1px;
+      height: 18px;
+      background: var(--border-2);
+      flex-shrink: 0;
+    }
 
-    .h-status { display: flex; gap: 14px; flex: 1; align-items: center; }
+    .h-status {
+      display: flex;
+      gap: 14px;
+      flex: 1;
+      align-items: center;
+    }
 
     .st-pill {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 10.5px; color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      color: var(--text-muted);
     }
-    .st-pill .dot { width: 6px; height: 6px; border-radius: 50%; }
-    .st-pill .n   { color: var(--text); font-weight: 600; }
 
-    .h-nav { display: flex; gap: 1px; align-items: center; flex-shrink: 0; }
+    .st-pill .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .st-pill .n {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .h-nav {
+      display: flex;
+      gap: 1px;
+      align-items: center;
+      flex-shrink: 0;
+    }
 
     .nav-btn {
-      background: none; border: none;
+      background: none;
+      border: none;
       color: var(--text-muted);
-      font-family: var(--font); font-size: 10.5px;
-      padding: 4px 10px; cursor: pointer; letter-spacing: 0.06em;
+      font-family: var(--font);
+      font-size: 10.5px;
+      padding: 4px 10px;
+      cursor: pointer;
+      letter-spacing: 0.06em;
       transition: color 0.15s;
     }
-    .nav-btn:hover  { color: var(--text); }
-    .nav-btn.active { color: var(--green); }
+
+    .nav-btn:hover {
+      color: var(--text);
+    }
+
+    .nav-btn.active {
+      color: var(--green);
+    }
 
     .btn-publish {
-      background: var(--green); color: #000; border: none;
-      font-family: var(--font); font-size: 10.5px; font-weight: 700;
-      padding: 4px 13px; cursor: pointer; letter-spacing: 0.06em;
-      margin-left: 8px; transition: opacity 0.15s;
+      background: var(--green);
+      color: #000;
+      border: none;
+      font-family: var(--font);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 13px;
+      cursor: pointer;
+      letter-spacing: 0.06em;
+      margin-left: 8px;
+      transition: opacity 0.15s;
     }
-    .btn-publish:hover { opacity: 0.8; }
+
+    .btn-publish:hover {
+      opacity: 0.8;
+    }
 
     /* ── Terminal ────────────────────────────────────────────────── */
     .terminal {
-      display: flex; flex-direction: column;
+      display: flex;
+      flex-direction: column;
       border-bottom: 1px solid var(--border);
       background: var(--surface);
       position: relative;
     }
 
     .term-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 7px 14px; border-bottom: 1px solid var(--border);
-      background: var(--surface-2); flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+      flex-shrink: 0;
     }
 
     .term-title {
-      color: var(--green); font-size: 10.5px; font-weight: 600;
-      letter-spacing: 0.08em; display: flex; align-items: center; gap: 7px;
+      color: var(--green);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 7px;
     }
-    .term-title::before { content: '▸'; }
 
-    .term-hint { font-size: 10px; color: var(--text-muted); letter-spacing: 0.04em; }
+    .term-title::before {
+      content: '▸';
+    }
+
+    .term-hint {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
 
     .dump-area {
-      flex: 1; background: transparent; border: none; resize: none; outline: none;
-      color: var(--text); font-family: var(--font); font-size: 12px; line-height: 1.75;
-      padding: 11px 14px; caret-color: var(--green);
+      flex: 1;
+      background: transparent;
+      border: none;
+      resize: none;
+      outline: none;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 12px;
+      line-height: 1.75;
+      padding: 11px 14px;
+      caret-color: var(--green);
       transition: background 0.2s;
     }
-    .dump-area::placeholder { color: var(--text-dim); }
-    .dump-area:focus { background: var(--green-dim); }
+
+    .dump-area::placeholder {
+      color: var(--text-dim);
+    }
+
+    .dump-area:focus {
+      background: var(--green-dim);
+    }
 
     .term-footer {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 5px 14px; border-top: 1px solid var(--border);
-      background: var(--surface-2); flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 14px;
+      border-top: 1px solid var(--border);
+      background: var(--surface-2);
+      flex-shrink: 0;
     }
 
-    .t-count { font-size: 10px; color: var(--text-muted); }
-    .t-count .n { color: var(--green); font-weight: 700; }
+    .t-count {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .t-count .n {
+      color: var(--green);
+      font-weight: 700;
+    }
 
     .btn-proc {
-      background: var(--green); color: #000; border: none;
-      font-family: var(--font); font-size: 10.5px; font-weight: 700;
-      padding: 5px 15px; cursor: pointer; letter-spacing: 0.06em;
-      display: flex; align-items: center; gap: 5px;
+      background: var(--green);
+      color: #000;
+      border: none;
+      font-family: var(--font);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 5px 15px;
+      cursor: pointer;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       transition: opacity 0.15s, transform 0.1s;
     }
-    .btn-proc:hover  { opacity: 0.82; }
-    .btn-proc:active { transform: scale(0.98); }
-    .btn-proc[disabled] { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .btn-proc:hover {
+      opacity: 0.82;
+    }
+
+    .btn-proc:active {
+      transform: scale(0.98);
+    }
+
+    .btn-proc[disabled] {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
 
     .spin {
-      width: 10px; height: 10px; border-radius: 50%;
-      border: 2px solid #000; border-top-color: transparent;
-      animation: spin 0.55s linear infinite; display: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      border-top-color: transparent;
+      animation: spin 0.55s linear infinite;
+      display: none;
     }
-    .btn-proc[disabled] .spin    { display: block; }
-    .btn-proc[disabled] .btn-ico { display: none; }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-proc[disabled] .spin {
+      display: block;
+    }
+
+    .btn-proc[disabled] .btn-ico {
+      display: none;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     /* ── Filter Bar ──────────────────────────────────────────────── */
     .filter-bar {
-      display: flex; align-items: stretch;
+      display: flex;
+      align-items: stretch;
       border-bottom: 1px solid var(--border);
-      background: var(--surface); overflow: hidden;
+      background: var(--surface);
+      overflow: hidden;
     }
 
     .cat-tabs {
-      display: flex; flex: 1;
-      overflow-x: auto; scrollbar-width: none;
+      display: flex;
+      flex: 1;
+      overflow-x: auto;
+      scrollbar-width: none;
     }
-    .cat-tabs::-webkit-scrollbar { display: none; }
+
+    .cat-tabs::-webkit-scrollbar {
+      display: none;
+    }
 
     .c-tab {
-      display: flex; align-items: center; gap: 5px;
-      padding: 0 13px; height: var(--fh);
-      background: none; border: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0 13px;
+      height: var(--fh);
+      background: none;
+      border: none;
       border-right: 1px solid var(--border);
-      color: var(--text-muted); font-family: var(--font); font-size: 10.5px;
-      cursor: pointer; white-space: nowrap; letter-spacing: 0.05em;
-      position: relative; transition: color 0.12s, background 0.12s;
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 10.5px;
+      cursor: pointer;
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+      position: relative;
+      transition: color 0.12s, background 0.12s;
     }
+
     .c-tab::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 2px; background: transparent; transition: background 0.12s;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: transparent;
+      transition: background 0.12s;
     }
-    .c-tab:hover { color: var(--text); background: var(--surface-3); }
-    .c-tab.on    { color: var(--text); }
-    .c-tab.on::after { background: var(--green); }
+
+    .c-tab:hover {
+      color: var(--text);
+      background: var(--surface-3);
+    }
+
+    .c-tab.on {
+      color: var(--text);
+    }
+
+    .c-tab.on::after {
+      background: var(--green);
+    }
 
     .c-cnt {
-      font-size: 9.5px; padding: 1px 5px;
-      background: var(--surface-3); color: var(--text-muted);
-      min-width: 17px; text-align: center;
+      font-size: 9.5px;
+      padding: 1px 5px;
+      background: var(--surface-3);
+      color: var(--text-muted);
+      min-width: 17px;
+      text-align: center;
     }
-    .c-tab.on .c-cnt { background: var(--green-glow); color: var(--green); }
 
-    .f-div { width: 1px; background: var(--border); flex-shrink: 0; }
+    .c-tab.on .c-cnt {
+      background: var(--green-glow);
+      color: var(--green);
+    }
+
+    .f-div {
+      width: 1px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
 
     .stat-btns {
-      display: flex; align-items: center;
-      padding: 0 10px; gap: 2px; flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 2px;
+      flex-shrink: 0;
     }
 
     .s-btn {
-      background: none; border: 1px solid transparent;
-      color: var(--text-muted); font-family: var(--font); font-size: 10px;
-      padding: 3px 8px; cursor: pointer; letter-spacing: 0.04em;
-      display: flex; align-items: center; gap: 4px;
+      background: none;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 10px;
+      padding: 3px 8px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
       transition: all 0.12s;
     }
-    .s-btn .dot { width: 5px; height: 5px; border-radius: 50%; }
-    .s-btn:hover { color: var(--text); border-color: var(--border-2); }
-    .s-btn.on    { color: var(--text); border-color: var(--border-2); background: var(--surface-3); }
+
+    .s-btn .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+
+    .s-btn:hover {
+      color: var(--text);
+      border-color: var(--border-2);
+    }
+
+    .s-btn.on {
+      color: var(--text);
+      border-color: var(--border-2);
+      background: var(--surface-3);
+    }
 
     /* ── Table ───────────────────────────────────────────────────── */
     .tbl-wrap {
@@ -249,185 +461,409 @@
       scrollbar-width: thin;
       scrollbar-color: var(--border-2) transparent;
     }
-    .tbl-wrap::-webkit-scrollbar { width: 4px; }
-    .tbl-wrap::-webkit-scrollbar-thumb { background: var(--border-2); }
 
-    table { width: 100%; border-collapse: collapse; }
-
-    thead th {
-      position: sticky; top: 0; z-index: 10;
-      background: var(--surface-2);
-      border-bottom: 1px solid var(--border);
-      padding: 7px 12px; text-align: left;
-      font-size: 9.5px; font-weight: 600;
-      color: var(--text-muted); letter-spacing: 0.09em; white-space: nowrap;
+    .tbl-wrap::-webkit-scrollbar {
+      width: 4px;
     }
 
-    .col-cb     { width: 30px; }
-    .col-id     { width: 88px; }
-    .col-th     { }
-    .col-cat    { width: 130px; }
-    .col-st     { width: 108px; }
-    .col-dt     { width: 96px; }
-    .col-del    { width: 30px; }
+    .tbl-wrap::-webkit-scrollbar-thumb {
+      background: var(--border-2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      padding: 7px 12px;
+      text-align: left;
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.09em;
+      white-space: nowrap;
+    }
+
+    .col-cb {
+      width: 30px;
+    }
+
+    .col-id {
+      width: 88px;
+    }
+
+    .col-th {}
+
+    .col-cat {
+      width: 130px;
+    }
+
+    .col-st {
+      width: 108px;
+    }
+
+    .col-dt {
+      width: 96px;
+    }
+
+    .col-del {
+      width: 30px;
+    }
 
     tbody tr {
       border-bottom: 1px solid var(--border);
-      cursor: pointer; transition: background 0.1s;
+      cursor: pointer;
+      transition: background 0.1s;
     }
-    tbody tr:hover    { background: var(--surface-3); }
-    tbody tr.open-row { background: var(--surface-2); }
+
+    tbody tr:hover {
+      background: var(--surface-3);
+    }
+
+    tbody tr.open-row {
+      background: var(--surface-2);
+    }
 
     td {
-      padding: 9px 12px; font-size: 11.5px; vertical-align: middle;
+      padding: 9px 12px;
+      font-size: 11.5px;
+      vertical-align: middle;
     }
 
-    .td-id { color: var(--text-muted); font-size: 9.5px; letter-spacing: 0.05em; }
+    .td-id {
+      color: var(--text-muted);
+      font-size: 9.5px;
+      letter-spacing: 0.05em;
+    }
 
     .td-text {
-      max-width: 0; overflow: hidden;
-      text-overflow: ellipsis; white-space: nowrap;
+      max-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       color: var(--text);
     }
 
     /* Category badge */
     .badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 3px 7px; font-size: 9.5px; font-weight: 600;
-      letter-spacing: 0.05em; white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 7px;
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
     }
-    .badge .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 
-    .bp { color: var(--cat-personal);   background: rgba(59,130,246,0.11); }
-    .bf { color: var(--cat-financial);  background: rgba(34,197,94,0.11); }
-    .bj { color: var(--cat-projects);   background: rgba(6,182,212,0.11); }
-    .ba { color: var(--cat-admin);      background: rgba(168,85,247,0.11); }
-    .bu { color: var(--cat-automation); background: rgba(245,158,11,0.11); }
+    .badge .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .bp {
+      color: var(--cat-personal);
+      background: rgba(59, 130, 246, 0.11);
+    }
+
+    .bf {
+      color: var(--cat-financial);
+      background: rgba(34, 197, 94, 0.11);
+    }
+
+    .bj {
+      color: var(--cat-projects);
+      background: rgba(6, 182, 212, 0.11);
+    }
+
+    .ba {
+      color: var(--cat-admin);
+      background: rgba(168, 85, 247, 0.11);
+    }
+
+    .bu {
+      color: var(--cat-automation);
+      background: rgba(245, 158, 11, 0.11);
+    }
 
     /* Status badge */
     .sbadge {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em;
-      cursor: pointer; padding: 3px 0; transition: opacity 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      padding: 3px 0;
+      transition: opacity 0.15s;
     }
-    .sbadge:hover { opacity: 0.65; }
-    .sbadge .dot  { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
-    .sn { color: var(--st-new); }
-    .so { color: var(--st-ongoing); }
-    .sd { color: var(--st-done); }
-    .sp { color: var(--st-pinnable); }
+    .sbadge:hover {
+      opacity: 0.65;
+    }
+
+    .sbadge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .sn {
+      color: var(--st-new);
+    }
+
+    .so {
+      color: var(--st-ongoing);
+    }
+
+    .sd {
+      color: var(--st-done);
+    }
+
+    .sp {
+      color: var(--st-pinnable);
+    }
 
     /* Expand row */
-    .xrow td { padding: 0 12px; overflow: hidden; }
+    .xrow td {
+      padding: 0 12px;
+      overflow: hidden;
+    }
+
     .xbody {
       padding: 10px 0 14px;
       border-top: 1px solid var(--border);
-      display: flex; gap: 14px; align-items: flex-start;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
     }
+
     .x-label {
-      font-size: 9.5px; color: var(--text-muted);
-      letter-spacing: 0.09em; flex-shrink: 0; margin-top: 1px;
+      font-size: 9.5px;
+      color: var(--text-muted);
+      letter-spacing: 0.09em;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
-    .x-action { font-size: 11.5px; color: var(--green); line-height: 1.55; }
+
+    .x-action {
+      font-size: 11.5px;
+      color: var(--green);
+      line-height: 1.55;
+    }
+
     .conf-wrap {
-      display: flex; align-items: center; gap: 8px; margin-top: 7px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 7px;
     }
-    .conf-bar  {
-      width: 80px; height: 2px; background: var(--border-2);
+
+    .conf-bar {
+      width: 80px;
+      height: 2px;
+      background: var(--border-2);
     }
-    .conf-fill { height: 100%; background: var(--green); }
-    .conf-lbl  { font-size: 9.5px; color: var(--text-muted); }
-    .model-lbl { font-size: 9.5px; color: var(--text-dim); margin-left: 6px; }
+
+    .conf-fill {
+      height: 100%;
+      background: var(--green);
+    }
+
+    .conf-lbl {
+      font-size: 9.5px;
+      color: var(--text-muted);
+    }
+
+    .model-lbl {
+      font-size: 9.5px;
+      color: var(--text-dim);
+      margin-left: 6px;
+    }
 
     /* Delete button */
     .del-btn {
-      opacity: 0; background: none; border: none;
-      color: #ef4444; font-size: 13px;
-      cursor: pointer; padding: 0 4px; font-family: var(--font);
+      opacity: 0;
+      background: none;
+      border: none;
+      color: #ef4444;
+      font-size: 13px;
+      cursor: pointer;
+      padding: 0 4px;
+      font-family: var(--font);
       transition: opacity 0.15s;
     }
-    tr:hover .del-btn { opacity: 0.4; }
-    .del-btn:hover    { opacity: 1 !important; }
+
+    tr:hover .del-btn {
+      opacity: 0.4;
+    }
+
+    .del-btn:hover {
+      opacity: 1 !important;
+    }
 
     /* Empty state */
-    .empty { text-align: center; padding: 56px 20px; color: var(--text-muted); }
-    .empty .e-title {
-      font-size: 13px; color: var(--text-dim);
-      margin-bottom: 8px; letter-spacing: 0.06em;
+    .empty {
+      text-align: center;
+      padding: 56px 20px;
+      color: var(--text-muted);
     }
-    .empty .e-sub { font-size: 10.5px; }
+
+    .empty .e-title {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      letter-spacing: 0.06em;
+    }
+
+    .empty .e-sub {
+      font-size: 10.5px;
+    }
 
     /* ── Bottom Bar ──────────────────────────────────────────────── */
     .bot-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 14px; border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      border-top: 1px solid var(--border);
       background: var(--surface);
     }
-    .bot-count { font-size: 10.5px; color: var(--text-muted); }
+
+    .bot-count {
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
 
     .btn-add {
-      background: none; border: 1px solid var(--border-2);
-      color: var(--text-muted); font-family: var(--font); font-size: 10.5px;
-      padding: 4px 12px; cursor: pointer; letter-spacing: 0.04em;
+      background: none;
+      border: 1px solid var(--border-2);
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 10.5px;
+      padding: 4px 12px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
       transition: all 0.15s;
     }
+
     .btn-add:hover {
       color: var(--green);
-      border-color: rgba(57,255,20,0.25);
+      border-color: rgba(57, 255, 20, 0.25);
       background: var(--green-dim);
     }
 
     /* ── Toast ───────────────────────────────────────────────────── */
     #toast {
-      position: fixed; bottom: 54px; right: 14px;
-      background: var(--surface-3); border: 1px solid var(--border-2);
-      color: var(--text); font-size: 10.5px; font-family: var(--font);
-      padding: 7px 13px; max-width: 320px;
-      opacity: 0; transform: translateY(6px);
-      transition: all 0.2s; z-index: 200; pointer-events: none;
+      position: fixed;
+      bottom: 54px;
+      right: 14px;
+      background: var(--surface-3);
+      border: 1px solid var(--border-2);
+      color: var(--text);
+      font-size: 10.5px;
+      font-family: var(--font);
+      padding: 7px 13px;
+      max-width: 320px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.2s;
+      z-index: 200;
+      pointer-events: none;
     }
-    #toast.show   { opacity: 1; transform: none; }
-    #toast.ok     { border-left: 2px solid var(--green); }
-    #toast.err    { border-left: 2px solid #ef4444; }
+
+    #toast.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    #toast.ok {
+      border-left: 2px solid var(--green);
+    }
+
+    #toast.err {
+      border-left: 2px solid #ef4444;
+    }
 
     /* ── Row entry animation ─────────────────────────────────────── */
     @keyframes rowIn {
-      from { opacity: 0; transform: translateY(-3px); }
-      to   { opacity: 1; transform: none; }
+      from {
+        opacity: 0;
+        transform: translateY(-3px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
-    .row-in { animation: rowIn 0.22s ease forwards; }
+
+    .row-in {
+      animation: rowIn 0.22s ease forwards;
+    }
 
     /* ── Scrollbar ───────────────────────────────────────────────── */
-    ::-webkit-scrollbar       { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border-2); }
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-2);
+    }
 
     /* ── App Layout Switches ─────────────────────────────────────── */
-    .app.view-dump #learn-view { display: none !important; }
+    .app.view-dump #sandbox-view,
+    .app.view-dump #learn-view {
+      display: none !important;
+    }
+
+    .app.view-sandbox #learn-view,
+    .app.view-sandbox .terminal,
+    .app.view-sandbox .filter-bar,
+    .app.view-sandbox .tbl-wrap,
+    .app.view-sandbox .bot-bar {
+      display: none !important;
+    }
+
+    .app.view-sandbox {
+      grid-template-rows: var(--hh) 1fr;
+    }
+
+    .app.view-learn #sandbox-view,
     .app.view-learn .terminal,
     .app.view-learn .filter-bar,
     .app.view-learn .tbl-wrap,
-    .app.view-learn .bot-bar { display: none !important; }
+    .app.view-learn .bot-bar {
+      display: none !important;
+    }
+
     .app.view-learn {
       grid-template-rows: var(--hh) 1fr;
     }
 
-    /* ── Learn View Styling ──────────────────────────────────────── */
+    /* ── View Container Styling ──────────────────────────────────── */
+    .sandbox-container,
     .learn-container {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 20px;
+      display: block;
       padding: 16px;
       overflow-y: auto;
       background: var(--bg);
       height: calc(100vh - var(--hh));
-    }
-    
-    @media (max-width: 950px) {
-      .learn-container {
-        grid-template-columns: 1fr;
-      }
     }
 
     .learn-card {
@@ -435,8 +871,9 @@
       border: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      padding: 16px;
-      overflow-y: auto;
+      padding: 20px;
+      width: 100%;
+      margin-bottom: 16px;
     }
 
     .learn-title {
@@ -471,6 +908,7 @@
       flex-direction: column;
       gap: 6px;
     }
+
     .sandbox-textarea {
       width: 100%;
       height: 52px;
@@ -485,6 +923,7 @@
       caret-color: var(--green);
       transition: all 0.15s;
     }
+
     .sandbox-textarea:focus {
       border-color: var(--green);
       background: var(--green-dim);
@@ -495,6 +934,7 @@
       flex-wrap: wrap;
       gap: 6px;
     }
+
     .preset-btn {
       background: var(--surface-3);
       border: 1px solid var(--border-2);
@@ -505,6 +945,7 @@
       cursor: pointer;
       transition: all 0.15s;
     }
+
     .preset-btn:hover {
       color: var(--text);
       border-color: var(--border);
@@ -527,15 +968,17 @@
       position: relative;
       transition: all 0.2s;
     }
+
     .pipeline-step.active-step {
       border-color: var(--green);
       background: var(--green-dim);
-      box-shadow: 0 0 10px rgba(57,255,20,0.06);
+      box-shadow: 0 0 10px rgba(57, 255, 20, 0.06);
     }
+
     .pipeline-step.skipped-step {
       opacity: 0.35;
     }
-    
+
     .step-badge {
       font-weight: 700;
       color: var(--green);
@@ -547,6 +990,7 @@
       margin-right: 12px;
       padding-right: 8px;
     }
+
     .pipeline-step.active-step .step-badge {
       color: #000;
       background: var(--green);
@@ -560,16 +1004,19 @@
       flex-direction: column;
       justify-content: center;
     }
+
     .step-title {
       font-weight: 600;
       font-size: 10.5px;
       color: var(--text);
     }
+
     .step-desc {
       font-size: 9.5px;
       color: var(--text-muted);
       margin-top: 2px;
     }
+
     .step-indicator {
       display: flex;
       align-items: center;
@@ -587,6 +1034,7 @@
       border-radius: 2px;
       overflow: hidden;
     }
+
     .phase-header {
       background: var(--surface-3);
       padding: 6px 12px;
@@ -598,20 +1046,36 @@
       align-items: center;
       border-bottom: 1px solid var(--border-2);
     }
+
     .phase-badge {
       font-size: 9px;
       padding: 1px 6px;
       border-radius: 2px;
       font-weight: 700;
     }
-    .badge-t1 { background: rgba(59, 130, 246, 0.12); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.25); }
-    .badge-t2 { background: rgba(34, 197, 94, 0.12); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.25); }
-    .badge-t3 { background: rgba(168, 85, 247, 0.12); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.25); }
-    
+
+    .badge-t1 {
+      background: rgba(59, 130, 246, 0.12);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+    }
+
+    .badge-t2 {
+      background: rgba(34, 197, 94, 0.12);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.25);
+    }
+
+    .badge-t3 {
+      background: rgba(168, 85, 247, 0.12);
+      color: #a855f7;
+      border: 1px solid rgba(168, 85, 247, 0.25);
+    }
+
     .phase-body {
       padding: 10px 12px;
     }
-    
+
     .code-cmd {
       background: #000;
       color: var(--green);
@@ -624,442 +1088,528 @@
     }
   </style>
 </head>
+
 <body>
-<div class="app view-dump" id="app-container">
+  <div class="app view-dump" id="app-container">
 
-  <!-- ══ HEADER ══════════════════════════════════════════════ -->
-  <header>
-    <div class="brand">
-      <div class="brand-box">⊕</div>
-      <span class="brand-name">BRAINDUMP.AI</span>
+    <!-- ══ HEADER ══════════════════════════════════════════════ -->
+    <header>
+      <div class="brand">
+        <div class="brand-box">⊕</div>
+        <span class="brand-name">BRAINDUMP.AI</span>
+      </div>
+      <span class="breadcrumb" id="view-breadcrumb">// thoughts: DUMP</span>
+      <div class="h-sep"></div>
+
+      <div class="h-status" id="h-status">
+        <!-- JS populated -->
+      </div>
+
+      <div class="h-nav">
+        <button class="nav-btn active" id="nav-btn-dump" onclick="switchView('dump')">DUMP</button>
+        <button class="nav-btn" id="nav-btn-sandbox" onclick="switchView('sandbox')">CASCADE SANDBOX</button>
+        <button class="nav-btn" id="nav-btn-learn" onclick="switchView('learn')">TRAINING SCHOOL</button>
+        <button class="btn-publish" onclick="window.open('/docs', '_blank')">API Docs</button>
+      </div>
+    </header>
+
+    <!-- ══ TERMINAL ════════════════════════════════════════════ -->
+    <section class="terminal">
+      <div class="term-header">
+        <span class="term-title">BRAINDUMP TERMINAL</span>
+        <span class="term-hint">CTRL+ENTER to process</span>
+      </div>
+
+      <textarea id="dump-in" class="dump-area"
+        placeholder="Just type. Don't organise. Stream of consciousness is fine.&#10;&#10;e.g. need to call dentist, thinking about building a discord bot, invest in ETFs, kevin website is long overdue, feeling a bit burnt out, gym Mon/Wed/Fri goal, automate my morning routine somehow..."
+        spellcheck="false"></textarea>
+
+      <div class="term-footer">
+        <span class="t-count"><span class="n" id="t-cnt">0</span> thoughts detected</span>
+        <button class="btn-proc" id="proc-btn" onclick="processDump()">
+          <span class="btn-ico">⊕</span>
+          <div class="spin"></div>
+          PROCESS DUMP
+        </button>
+      </div>
+    </section>
+
+    <!-- ══ FILTER BAR ══════════════════════════════════════════ -->
+    <div class="filter-bar">
+      <div class="cat-tabs" id="cat-tabs"><!-- JS --></div>
+      <div class="f-div"></div>
+      <div class="stat-btns" id="stat-btns"><!-- JS --></div>
     </div>
-    <span class="breadcrumb" id="view-breadcrumb">// thoughts: DUMP</span>
-    <div class="h-sep"></div>
 
-    <div class="h-status" id="h-status">
-      <!-- JS populated -->
+    <!-- ══ TABLE ═══════════════════════════════════════════════ -->
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-cb">▢</th>
+            <th class="col-id">ID</th>
+            <th class="col-th">THOUGHT</th>
+            <th class="col-cat">CATEGORY</th>
+            <th class="col-st">STATUS</th>
+            <th class="col-dt">DATE</th>
+            <th class="col-del"></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"><!-- JS --></tbody>
+      </table>
     </div>
 
-    <div class="h-nav">
-      <button class="nav-btn active" id="nav-btn-dump" onclick="switchView('dump')">DUMP</button>
-      <button class="nav-btn" id="nav-btn-learn" onclick="switchView('learn')">LEARN TRAINING</button>
-      <button class="btn-publish" onclick="window.open('/docs', '_blank')">API Docs</button>
-    </div>
-  </header>
-
-  <!-- ══ TERMINAL ════════════════════════════════════════════ -->
-  <section class="terminal">
-    <div class="term-header">
-      <span class="term-title">BRAINDUMP TERMINAL</span>
-      <span class="term-hint">CTRL+ENTER to process</span>
+    <!-- ══ BOTTOM BAR ══════════════════════════════════════════ -->
+    <div class="bot-bar">
+      <span class="bot-count" id="bot-count">Showing 0 of 0 items</span>
+      <button class="btn-add" onclick="focusDump()">+ ADD THOUGHTS</button>
     </div>
 
-    <textarea id="dump-in" class="dump-area"
-      placeholder="Just type. Don't organise. Stream of consciousness is fine.&#10;&#10;e.g. need to call dentist, thinking about building a discord bot, invest in ETFs, kevin website is long overdue, feeling a bit burnt out, gym Mon/Wed/Fri goal, automate my morning routine somehow..."
-      spellcheck="false"></textarea>
+    <!-- ══ SANDBOX VIEW ════════════════════════════════════════ -->
+    <div id="sandbox-view" class="sandbox-container">
+      <!-- Interactive Simulation -->
+      <div class="learn-card">
+        <h2 class="learn-title">⊕ Cascade Routing Sandbox</h2>
+        <div class="learn-text">
+          Type a thought below or select a preset to visualize how the <strong>Arbitrator</strong> cascade routes the
+          thought through our model tiers in real time.
+        </div>
 
-    <div class="term-footer">
-      <span class="t-count"><span class="n" id="t-cnt">0</span> thoughts detected</span>
-      <button class="btn-proc" id="proc-btn" onclick="processDump()">
-        <span class="btn-ico">⊕</span>
-        <div class="spin"></div>
-        PROCESS DUMP
-      </button>
+        <div class="sandbox-input-group">
+          <textarea id="sb-input" class="sandbox-textarea" placeholder="Type a sample thought here..."
+            oninput="simulateRouting()"></textarea>
+          <div class="sandbox-presets">
+            <button class="preset-btn" onclick="loadSandboxPreset('Invest $200 per month into index funds')">Financial
+              Preset</button>
+            <button class="preset-btn"
+              onclick="loadSandboxPreset('Design high-fidelity mockup for the new app dashboard')">Projects
+              Preset</button>
+            <button class="preset-btn"
+              onclick="loadSandboxPreset('Automate Slack alert script triggers via github webhooks')">Automation
+              Preset</button>
+            <button class="preset-btn"
+              onclick="loadSandboxPreset('Schedule follow up meeting with client on Monday')">Admin Preset</button>
+          </div>
+        </div>
+
+        <div class="pipeline-visual">
+          <!-- Input thought split step -->
+          <div class="pipeline-step" id="step-input">
+            <div class="step-badge">INPUT</div>
+            <div class="step-detail">
+              <span class="step-title">Text Splitter & Cleaner</span>
+              <span class="step-desc" id="step-input-desc">Splits stream-of-consciousness text into distinct
+                thoughts.</span>
+            </div>
+            <div class="step-indicator" id="step-input-val">—</div>
+          </div>
+
+          <!-- Tier 1 TF-IDF Step -->
+          <div class="pipeline-step" id="step-t1">
+            <div class="step-badge">TIER 1</div>
+            <div class="step-detail">
+              <span class="step-title">TF-IDF + SVM Classifier (or keyword fallback)</span>
+              <span class="step-desc" id="step-t1-desc">Runs instantaneously (&lt;1ms). Fallback confidence capped at
+                0.75.</span>
+            </div>
+            <div class="step-indicator" id="step-t1-val">—</div>
+          </div>
+
+          <!-- Arbitrator Routing Step -->
+          <div class="pipeline-step" id="step-arb">
+            <div class="step-badge">ARBITRATOR</div>
+            <div class="step-detail">
+              <span class="step-title">Cascade Arbitrator Routing Decisions</span>
+              <span class="step-desc" id="step-arb-desc">Checks if T1 conf &ge; 0.90 (Speed Path). Otherwise routes to
+                T2.</span>
+            </div>
+            <div class="step-indicator" id="step-arb-val">—</div>
+          </div>
+
+          <!-- Tier 2 SLM Step -->
+          <div class="pipeline-step" id="step-t2">
+            <div class="step-badge">TIER 2</div>
+            <div class="step-detail">
+              <span class="step-title">Quantized Student SLM (MiniTransformer)</span>
+              <span class="step-desc" id="step-t2-desc">Runs in ~8ms. Checks if conf &ge; 0.85 (Quality Path).</span>
+            </div>
+            <div class="step-indicator" id="step-t2-val">—</div>
+          </div>
+
+          <!-- Tier 3 BERT Step -->
+          <div class="pipeline-step" id="step-t3">
+            <div class="step-badge">TIER 3</div>
+            <div class="step-detail">
+              <span class="step-title">Fine-tuned BERT Teacher Oracle</span>
+              <span class="step-desc" id="step-t3-desc">Runs in ~280ms. Resolves disagreement via majority voting
+                fallback.</span>
+            </div>
+            <div class="step-indicator" id="step-t3-val">—</div>
+          </div>
+
+          <!-- Action Suggestion Engine Step -->
+          <div class="pipeline-step" id="step-action">
+            <div class="step-badge">ACTION</div>
+            <div class="step-detail">
+              <span class="step-title">Action Suggestion Engine</span>
+              <span class="step-desc" id="step-action-desc">Constructs contextual, entity-aware task actions.</span>
+            </div>
+            <div class="step-indicator" id="step-action-val">—</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
 
-  <!-- ══ FILTER BAR ══════════════════════════════════════════ -->
-  <div class="filter-bar">
-    <div class="cat-tabs" id="cat-tabs"><!-- JS --></div>
-    <div class="f-div"></div>
-    <div class="stat-btns" id="stat-btns"><!-- JS --></div>
+    <!-- ══ LEARN VIEW ══════════════════════════════════════════ -->
+    <div id="learn-view" class="learn-container">
+      <!-- Training School -->
+      <div class="learn-card">
+        <h2 class="learn-title">⊕ Local Model Training School</h2>
+        <div class="learn-text">
+          Learn how to compile, train, and compress the local machine learning models that power BrainDump.AI.
+        </div>
+
+        <!-- SVM Tier 1 training -->
+        <div class="train-phase">
+          <div class="phase-header">
+            <span>1. TIER 1: SVM PIPELINE TRAINING</span>
+            <span class="phase-badge badge-t1">Phase 5</span>
+          </div>
+          <div class="phase-body">
+            <div class="learn-text">
+              On initial startup, Tier 1 runs on raw <strong>keyword overlapping regex rules</strong>. Once you have
+              accumulated enough data, you can train a lightweight machine learning classifier (TF-IDF vectorizer +
+              Support Vector Machine) which learns actual word weights:
+            </div>
+            <div class="code-cmd">python training/train_tier1.py</div>
+            <div class="learn-text" style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+              This builds a scikit-learn pipeline, exports it to <code>models/tier1_svm.pkl</code>, and shifts
+              prediction from basic keywords to probability distributions.
+            </div>
+
+            <button class="btn-proc" id="btn-retrain-t1" onclick="triggerRetrainTier1()"
+              style="margin-top: 10px; margin-bottom: 12px; background: var(--green); color: #000; font-weight: bold; font-family: var(--font); font-size: 10px; border: none; padding: 6px 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; border-radius: 2px;">
+              <span class="btn-ico">⚡</span>
+              <div class="spin" id="spin-retrain"
+                style="width: 10px; height: 10px; border: 2px solid #000; border-top-color: transparent; border-radius: 50%; display: none;">
+              </div>
+              RUN IN-MEMORY RETRAINING
+            </button>
+
+            <!-- Version Control UI -->
+            <div class="train-version-registry"
+              style="margin-top: 10px; margin-bottom: 14px; border-top: 1px dashed var(--border-2); padding-top: 10px;">
+              <div class="learn-text"
+                style="font-weight: bold; color: var(--green); margin-bottom: 4px; font-size: 10.5px;">🗂️ Model Version
+                Control Registry</div>
+              <div class="learn-text" style="margin-bottom: 8px;">
+                Active model: <strong id="lbl-active-version" style="color: var(--green);">loading...</strong>
+              </div>
+
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <select id="select-model-version"
+                  style="flex: 1; background: var(--surface-3); border: 1px solid var(--border-2); color: var(--text); font-family: var(--font); font-size: 10px; padding: 4px; outline: none; border-radius: 2px;">
+                  <option value="">No version history loaded</option>
+                </select>
+                <button class="preset-btn" onclick="activateModelVersion()"
+                  style="padding: 4px 10px; font-size: 9.5px; border-radius: 2px; color: var(--green); border-color: rgba(57,255,20,0.3);">
+                  Activate Version
+                </button>
+              </div>
+            </div>
+
+            <!-- Trained model plots section -->
+            <div id="t1-plots-container" style="margin-top: 14px; display: none; text-align: center;">
+              <div class="learn-text" style="font-weight: bold; margin-bottom: 6px; color: var(--green); text-align: center;">📊 Trained Model Metrics & Visualizations:</div>
+              <div style="display: flex; flex-direction: column; gap: 14px; align-items: center;">
+                <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+                  <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 3px; font-weight: bold; text-align: center;">[1] Category Sample Counts (Seed Data)</div>
+                  <img id="img-dist" src=""
+                    style="width: 30%; border: 1px solid var(--border); background: #0c0c0c; display: block; border-radius: 2px; margin: 0 auto;"
+                    onerror="onPlotError('dist')" onload="onPlotLoad('dist')">
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+                  <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 3px; font-weight: bold; text-align: center;">[2] Classifier Evaluation Confusion Matrix</div>
+                  <img id="img-cm" src=""
+                    style="width: 30%; border: 1px solid var(--border); background: #0c0c0c; display: block; border-radius: 2px; margin: 0 auto;"
+                    onerror="onPlotError('cm')" onload="onPlotLoad('cm')">
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+                  <div style="font-size: 9px; color: var(--text-muted); margin-bottom: 3px; font-weight: bold; text-align: center;">[3] Feature Importance (SVM Coefficients)</div>
+                  <img id="img-feat" src=""
+                    style="width: 30%; border: 1px solid var(--border); background: #0c0c0c; display: block; border-radius: 2px; margin: 0 auto;"
+                    onerror="onPlotError('feat')" onload="onPlotLoad('feat')">
+                </div>
+              </div>
+            </div>
+            <div id="t1-no-plots-msg"
+              style="font-size: 10px; color: var(--text-muted); border: 1px dashed var(--border-2); padding: 10px; margin-top: 14px; text-align: center; border-radius: 2px; background: rgba(255,255,255,0.01);">
+              ⚠️ No training plots found. Run the training script in Docker to generate model visuals.
+            </div>
+          </div>
+        </div>
+
+        <!-- BERT Teacher training -->
+        <div class="train-phase">
+          <div class="phase-header">
+            <span>2. TIER 3: BERT TEACHER MODEL FINE-TUNING</span>
+            <span class="phase-badge badge-t3">Phase 6</span>
+          </div>
+          <div class="phase-body">
+            <div class="learn-text">
+              To handle complex language structures and establish a highly accurate oracle/teacher, we fine-tune a heavy
+              transformer model (<code>bert-base-uncased</code>) on our classified database:
+            </div>
+            <div class="code-cmd">python -m ml.slm.01_teacher.train_teacher</div>
+            <div class="learn-text" style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+              This saves a full-precision PyTorch sequence classifier in <code>models/teacher_bert/</code>.
+            </div>
+          </div>
+        </div>
+
+        <!-- SLM Distillation -->
+        <div class="train-phase">
+          <div class="phase-header">
+            <span>3. TIER 2: DISTILL, PRUNE, & QUANTIZE SLM</span>
+            <span class="phase-badge badge-t2">Phases 7 - 9</span>
+          </div>
+          <div class="phase-body">
+            <div class="learn-text">
+              Since running a full BERT model locally takes ~280ms on CPU, we use the teacher to distill a fast Student
+              model (MiniTransformer) and compress it via <strong>Weight Pruning</strong> and <strong>Dynamic
+                Quantization</strong> (FP32 &rarr; INT8):
+            </div>
+            <div class="code-cmd">python -m ml.slm.02_distillation.distill_train<br>python -m
+              ml.slm.03_pruning.run_pruning<br>python -m ml.slm.04_quantization.quantize_dynamic</div>
+            <div class="learn-text" style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+              This produces <code>models/student_quantized.pt</code> which runs in ~8ms while preserving 95%+ of the
+              BERT teacher's classification quality.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- ══ TABLE ═══════════════════════════════════════════════ -->
-  <div class="tbl-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th class="col-cb">▢</th>
-          <th class="col-id">ID</th>
-          <th class="col-th">THOUGHT</th>
-          <th class="col-cat">CATEGORY</th>
-          <th class="col-st">STATUS</th>
-          <th class="col-dt">DATE</th>
-          <th class="col-del"></th>
-        </tr>
-      </thead>
-      <tbody id="tbody"><!-- JS --></tbody>
-    </table>
-  </div>
+  <div id="toast"></div>
 
-  <!-- ══ BOTTOM BAR ══════════════════════════════════════════ -->
-  <div class="bot-bar">
-    <span class="bot-count" id="bot-count">Showing 0 of 0 items</span>
-    <button class="btn-add" onclick="focusDump()">+ ADD THOUGHTS</button>
-  </div>
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <script>
+    "use strict";
 
-  <!-- ══ LEARN VIEW ══════════════════════════════════════════ -->
-  <div id="learn-view" class="learn-container">
-    <!-- Left Column: Interactive Simulation -->
-    <div class="learn-card">
-      <h2 class="learn-title">⊕ Cascade Routing Sandbox</h2>
-      <div class="learn-text">
-        Type a thought below or select a preset to visualize how the <strong>Arbitrator</strong> cascade routes the thought through our model tiers in real time.
-      </div>
-      
-      <div class="sandbox-input-group">
-        <textarea id="sb-input" class="sandbox-textarea" placeholder="Type a sample thought here..." oninput="simulateRouting()"></textarea>
-        <div class="sandbox-presets">
-          <button class="preset-btn" onclick="loadSandboxPreset('Invest $200 per month into index funds')">Financial Preset</button>
-          <button class="preset-btn" onclick="loadSandboxPreset('Design high-fidelity mockup for the new app dashboard')">Projects Preset</button>
-          <button class="preset-btn" onclick="loadSandboxPreset('Automate Slack alert script triggers via github webhooks')">Automation Preset</button>
-          <button class="preset-btn" onclick="loadSandboxPreset('Schedule follow up meeting with client on Monday')">Admin Preset</button>
-        </div>
-      </div>
+    const API = '/api';
 
-      <div class="pipeline-visual">
-        <!-- Input thought split step -->
-        <div class="pipeline-step" id="step-input">
-          <div class="step-badge">INPUT</div>
-          <div class="step-detail">
-            <span class="step-title">Text Splitter & Cleaner</span>
-            <span class="step-desc" id="step-input-desc">Splits stream-of-consciousness text into distinct thoughts.</span>
-          </div>
-          <div class="step-indicator" id="step-input-val">—</div>
-        </div>
+    // ── State ─────────────────────────────────────────────────────
+    let thoughts = [];
+    let filterCat = 'ALL';
+    let filterSt = 'ALL';
+    let expanded = null;
+    let activeModelSuffix = "";
 
-        <!-- Tier 1 TF-IDF Step -->
-        <div class="pipeline-step" id="step-t1">
-          <div class="step-badge">TIER 1</div>
-          <div class="step-detail">
-            <span class="step-title">TF-IDF + SVM Classifier (or keyword fallback)</span>
-            <span class="step-desc" id="step-t1-desc">Runs instantaneously (&lt;1ms). Fallback confidence capped at 0.75.</span>
-          </div>
-          <div class="step-indicator" id="step-t1-val">—</div>
-        </div>
+    // ── Constants ─────────────────────────────────────────────────
+    const CATS = ['ALL', 'PERSONAL', 'FINANCIAL', 'PROJECTS', 'ADMIN', 'AUTOMATION'];
+    const STS = ['ALL', 'NEW', 'ONGOING', 'DONE', 'PINNABLE'];
 
-        <!-- Arbitrator Routing Step -->
-        <div class="pipeline-step" id="step-arb">
-          <div class="step-badge">ARBITRATOR</div>
-          <div class="step-detail">
-            <span class="step-title">Cascade Arbitrator Routing Decisions</span>
-            <span class="step-desc" id="step-arb-desc">Checks if T1 conf &ge; 0.90 (Speed Path). Otherwise routes to T2.</span>
-          </div>
-          <div class="step-indicator" id="step-arb-val">—</div>
-        </div>
+    const CAT_ICON = {
+      ALL: '◈', PERSONAL: '◎', FINANCIAL: '$',
+      PROJECTS: '◇', ADMIN: '≡', AUTOMATION: '⚡'
+    };
 
-        <!-- Tier 2 SLM Step -->
-        <div class="pipeline-step" id="step-t2">
-          <div class="step-badge">TIER 2</div>
-          <div class="step-detail">
-            <span class="step-title">Quantized Student SLM (MiniTransformer)</span>
-            <span class="step-desc" id="step-t2-desc">Runs in ~8ms. Checks if conf &ge; 0.85 (Quality Path).</span>
-          </div>
-          <div class="step-indicator" id="step-t2-val">—</div>
-        </div>
+    const CAT_CLS = {
+      PERSONAL: 'bp', FINANCIAL: 'bf', PROJECTS: 'bj', ADMIN: 'ba', AUTOMATION: 'bu'
+    };
 
-        <!-- Tier 3 BERT Step -->
-        <div class="pipeline-step" id="step-t3">
-          <div class="step-badge">TIER 3</div>
-          <div class="step-detail">
-            <span class="step-title">Fine-tuned BERT Teacher Oracle</span>
-            <span class="step-desc" id="step-t3-desc">Runs in ~280ms. Resolves disagreement via majority voting fallback.</span>
-          </div>
-          <div class="step-indicator" id="step-t3-val">—</div>
-        </div>
+    const ST_CLS = { NEW: 'sn', ONGOING: 'so', DONE: 'sd', PINNABLE: 'sp' };
 
-        <!-- Action Suggestion Engine Step -->
-        <div class="pipeline-step" id="step-action">
-          <div class="step-badge">ACTION</div>
-          <div class="step-detail">
-            <span class="step-title">Action Suggestion Engine</span>
-            <span class="step-desc" id="step-action-desc">Constructs contextual, entity-aware task actions.</span>
-          </div>
-          <div class="step-indicator" id="step-action-val">—</div>
-        </div>
-      </div>
-    </div>
+    const ST_DOT = {
+      NEW: 'var(--st-new)', ONGOING: 'var(--st-ongoing)',
+      DONE: 'var(--st-done)', PINNABLE: 'var(--st-pinnable)'
+    };
 
-    <!-- Right Column: Training School -->
-    <div class="learn-card">
-      <h2 class="learn-title">⊕ Local Model Training School</h2>
-      <div class="learn-text">
-        Learn how to compile, train, and compress the local machine learning models that power BrainDump.AI.
-      </div>
+    const CAT_DOT = {
+      PERSONAL: 'var(--cat-personal)', FINANCIAL: 'var(--cat-financial)',
+      PROJECTS: 'var(--cat-projects)', ADMIN: 'var(--cat-admin)',
+      AUTOMATION: 'var(--cat-automation)'
+    };
 
-      <!-- SVM Tier 1 training -->
-      <div class="train-phase">
-        <div class="phase-header">
-          <span>1. TIER 1: SVM PIPELINE TRAINING</span>
-          <span class="phase-badge badge-t1">Phase 5</span>
-        </div>
-        <div class="phase-body">
-          <div class="learn-text">
-            On initial startup, Tier 1 runs on raw <strong>keyword overlapping regex rules</strong>. Once you have accumulated enough data, you can train a lightweight machine learning classifier (TF-IDF vectorizer + Support Vector Machine) which learns actual word weights:
-          </div>
-          <div class="code-cmd">python training/train_tier1.py</div>
-          <div class="learn-text" style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
-            This builds a scikit-learn pipeline, exports it to <code>models/tier1_svm.pkl</code>, and shifts prediction from basic keywords to probability distributions.
-          </div>
-        </div>
-      </div>
+    const ST_CYCLE = { NEW: 'ONGOING', ONGOING: 'DONE', DONE: 'PINNABLE', PINNABLE: 'NEW' };
 
-      <!-- BERT Teacher training -->
-      <div class="train-phase">
-        <div class="phase-header">
-          <span>2. TIER 3: BERT TEACHER MODEL FINE-TUNING</span>
-          <span class="phase-badge badge-t3">Phase 6</span>
-        </div>
-        <div class="phase-body">
-          <div class="learn-text">
-            To handle complex language structures and establish a highly accurate oracle/teacher, we fine-tune a heavy transformer model (<code>bert-base-uncased</code>) on our classified database:
-          </div>
-          <div class="code-cmd">python -m ml.slm.01_teacher.train_teacher</div>
-          <div class="learn-text" style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
-            This saves a full-precision PyTorch sequence classifier in <code>models/teacher_bert/</code>.
-          </div>
-        </div>
-      </div>
+    // ── Init ──────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      buildFilters();
+      loadThoughts();
 
-      <!-- SLM Distillation -->
-      <div class="train-phase">
-        <div class="phase-header">
-          <span>3. TIER 2: DISTILL, PRUNE, & QUANTIZE SLM</span>
-          <span class="phase-badge badge-t2">Phases 7 - 9</span>
-        </div>
-        <div class="phase-body">
-          <div class="learn-text">
-            Since running a full BERT model locally takes ~280ms on CPU, we use the teacher to distill a fast Student model (MiniTransformer) and compress it via <strong>Weight Pruning</strong> and <strong>Dynamic Quantization</strong> (FP32 &rarr; INT8):
-          </div>
-          <div class="code-cmd">python -m ml.slm.02_distillation.distill_train<br>python -m ml.slm.03_pruning.run_pruning<br>python -m ml.slm.04_quantization.quantize_dynamic</div>
-          <div class="learn-text" style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
-            This produces <code>models/student_quantized.pt</code> which runs in ~8ms while preserving 95%+ of the BERT teacher's classification quality.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="toast"></div>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<script>
-"use strict";
-
-const API = '/api';
-
-// ── State ─────────────────────────────────────────────────────
-let thoughts  = [];
-let filterCat = 'ALL';
-let filterSt  = 'ALL';
-let expanded  = null;
-
-// ── Constants ─────────────────────────────────────────────────
-const CATS = ['ALL','PERSONAL','FINANCIAL','PROJECTS','ADMIN','AUTOMATION'];
-const STS  = ['ALL','NEW','ONGOING','DONE','PINNABLE'];
-
-const CAT_ICON = {
-  ALL:'◈', PERSONAL:'◎', FINANCIAL:'$',
-  PROJECTS:'◇', ADMIN:'≡', AUTOMATION:'⚡'
-};
-
-const CAT_CLS = {
-  PERSONAL:'bp', FINANCIAL:'bf', PROJECTS:'bj', ADMIN:'ba', AUTOMATION:'bu'
-};
-
-const ST_CLS = { NEW:'sn', ONGOING:'so', DONE:'sd', PINNABLE:'sp' };
-
-const ST_DOT = {
-  NEW:'var(--st-new)', ONGOING:'var(--st-ongoing)',
-  DONE:'var(--st-done)', PINNABLE:'var(--st-pinnable)'
-};
-
-const CAT_DOT = {
-  PERSONAL:'var(--cat-personal)', FINANCIAL:'var(--cat-financial)',
-  PROJECTS:'var(--cat-projects)', ADMIN:'var(--cat-admin)',
-  AUTOMATION:'var(--cat-automation)'
-};
-
-const ST_CYCLE = {NEW:'ONGOING', ONGOING:'DONE', DONE:'PINNABLE', PINNABLE:'NEW'};
-
-// ── Init ──────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  buildFilters();
-  loadThoughts();
-
-  const ta = document.getElementById('dump-in');
-  ta.addEventListener('input', updateCount);
-  ta.addEventListener('keydown', e => {
-    if (e.ctrlKey && e.key === 'Enter') processDump();
-  });
-});
-
-// ── API ───────────────────────────────────────────────────────
-async function loadThoughts() {
-  try {
-    const r = await fetch(`${API}/thoughts`);
-    const d = await r.json();
-    thoughts = d.thoughts || [];
-    renderAll();
-  } catch {
-    toast('Could not reach API — is the server running?', 'err');
-  }
-}
-
-async function processDump() {
-  const text = document.getElementById('dump-in').value.trim();
-  if (!text) { toast('Nothing to process — type something first', 'err'); return; }
-
-  setLoading(true);
-  try {
-    const r = await fetch(`${API}/process-dump`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ text })
+      const ta = document.getElementById('dump-in');
+      ta.addEventListener('input', updateCount);
+      ta.addEventListener('keydown', e => {
+        if (e.ctrlKey && e.key === 'Enter') processDump();
+      });
     });
-    const d = await r.json();
-    const incoming = d.thoughts || [];
 
-    thoughts = [...incoming, ...thoughts];
-    document.getElementById('dump-in').value = '';
-    updateCount();
-    renderAll();
+    // ── API ───────────────────────────────────────────────────────
+    async function loadThoughts() {
+      try {
+        const r = await fetch(`${API}/thoughts`);
+        const d = await r.json();
+        thoughts = d.thoughts || [];
+        renderAll();
+      } catch {
+        toast('Could not reach API — is the server running?', 'err');
+      }
+    }
 
-    const ms = Math.round(d.processing_time_ms || 0);
-    const tb = d.tier_breakdown || {};
-    toast(`${incoming.length} thought${incoming.length!==1?'s':''} processed in ${ms}ms  [T1:${tb.tier1_used||0} T2:${tb.tier2_used||0} T3:${tb.tier3_used||0}]`, 'ok');
-  } catch(e) {
-    toast('Processing failed — check server logs', 'err');
-  } finally {
-    setLoading(false);
-  }
-}
+    async function processDump() {
+      const text = document.getElementById('dump-in').value.trim();
+      if (!text) { toast('Nothing to process — type something first', 'err'); return; }
 
-async function cycleStatus(id, cur, e) {
-  e.stopPropagation();
-  const next = ST_CYCLE[cur] || 'NEW';
-  try {
-    await fetch(`${API}/thoughts/${id}`, {
-      method:'PATCH',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ status: next })
-    });
-    const t = thoughts.find(x => x.id === id);
-    if (t) t.status = next;
-    renderAll();
-  } catch { toast('Update failed', 'err'); }
-}
+      setLoading(true);
+      try {
+        const r = await fetch(`${API}/process-dump`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text })
+        });
+        const d = await r.json();
+        const incoming = d.thoughts || [];
 
-async function deleteTh(id, e) {
-  e.stopPropagation();
-  try {
-    await fetch(`${API}/thoughts/${id}`, { method:'DELETE' });
-    thoughts = thoughts.filter(x => x.id !== id);
-    if (expanded === id) expanded = null;
-    renderAll();
-    toast('Thought removed', 'ok');
-  } catch { toast('Delete failed', 'err'); }
-}
+        thoughts = [...incoming, ...thoughts];
+        document.getElementById('dump-in').value = '';
+        updateCount();
+        renderAll();
 
-// ── Render ────────────────────────────────────────────────────
-function renderAll() {
-  renderCatTabs();
-  renderStatBtns();
-  renderHeaderStatus();
-  renderTable();
-}
+        const ms = Math.round(d.processing_time_ms || 0);
+        const tb = d.tier_breakdown || {};
+        toast(`${incoming.length} thought${incoming.length !== 1 ? 's' : ''} processed in ${ms}ms  [T1:${tb.tier1_used || 0} T2:${tb.tier2_used || 0} T3:${tb.tier3_used || 0}]`, 'ok');
+      } catch (e) {
+        toast('Processing failed — check server logs', 'err');
+      } finally {
+        setLoading(false);
+      }
+    }
 
-function filtered() {
-  return thoughts.filter(t =>
-    (filterCat === 'ALL' || t.category === filterCat) &&
-    (filterSt  === 'ALL' || t.status   === filterSt)
-  );
-}
+    async function cycleStatus(id, cur, e) {
+      e.stopPropagation();
+      const next = ST_CYCLE[cur] || 'NEW';
+      try {
+        await fetch(`${API}/thoughts/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: next })
+        });
+        const t = thoughts.find(x => x.id === id);
+        if (t) t.status = next;
+        renderAll();
+      } catch { toast('Update failed', 'err'); }
+    }
 
-function counts() {
-  const cc = { ALL: thoughts.length };
-  const sc = { ALL: thoughts.length };
-  for (const t of thoughts) {
-    cc[t.category] = (cc[t.category] || 0) + 1;
-    sc[t.status]   = (sc[t.status]   || 0) + 1;
-  }
-  return { cc, sc };
-}
+    async function deleteTh(id, e) {
+      e.stopPropagation();
+      try {
+        await fetch(`${API}/thoughts/${id}`, { method: 'DELETE' });
+        thoughts = thoughts.filter(x => x.id !== id);
+        if (expanded === id) expanded = null;
+        renderAll();
+        toast('Thought removed', 'ok');
+      } catch { toast('Delete failed', 'err'); }
+    }
 
-function renderCatTabs() {
-  const { cc } = counts();
-  document.getElementById('cat-tabs').innerHTML = CATS.map(c => `
-    <button class="c-tab${filterCat===c?' on':''}" onclick="setCat('${c}')">
-      <span>${CAT_ICON[c]||''}</span> ${c}
-      <span class="c-cnt">${cc[c]||0}</span>
+    // ── Render ────────────────────────────────────────────────────
+    function renderAll() {
+      renderCatTabs();
+      renderStatBtns();
+      renderHeaderStatus();
+      renderTable();
+    }
+
+    function filtered() {
+      return thoughts.filter(t =>
+        (filterCat === 'ALL' || t.category === filterCat) &&
+        (filterSt === 'ALL' || t.status === filterSt)
+      );
+    }
+
+    function counts() {
+      const cc = { ALL: thoughts.length };
+      const sc = { ALL: thoughts.length };
+      for (const t of thoughts) {
+        cc[t.category] = (cc[t.category] || 0) + 1;
+        sc[t.status] = (sc[t.status] || 0) + 1;
+      }
+      return { cc, sc };
+    }
+
+    function renderCatTabs() {
+      const { cc } = counts();
+      document.getElementById('cat-tabs').innerHTML = CATS.map(c => `
+    <button class="c-tab${filterCat === c ? ' on' : ''}" onclick="setCat('${c}')">
+      <span>${CAT_ICON[c] || ''}</span> ${c}
+      <span class="c-cnt">${cc[c] || 0}</span>
     </button>`).join('');
-}
+    }
 
-function renderStatBtns() {
-  const { sc } = counts();
-  document.getElementById('stat-btns').innerHTML = STS.map(s => {
-    const dot = s!=='ALL'
-      ? `<span class="dot" style="background:${ST_DOT[s]}"></span>`
-      : '';
-    const cnt = s!=='ALL'
-      ? `<span style="color:var(--text-muted);font-size:9px">${sc[s]||0}</span>`
-      : '';
-    return `<button class="s-btn${filterSt===s?' on':''}" onclick="setSt('${s}')">
+    function renderStatBtns() {
+      const { sc } = counts();
+      document.getElementById('stat-btns').innerHTML = STS.map(s => {
+        const dot = s !== 'ALL'
+          ? `<span class="dot" style="background:${ST_DOT[s]}"></span>`
+          : '';
+        const cnt = s !== 'ALL'
+          ? `<span style="color:var(--text-muted);font-size:9px">${sc[s] || 0}</span>`
+          : '';
+        return `<button class="s-btn${filterSt === s ? ' on' : ''}" onclick="setSt('${s}')">
       ${dot}${s}${cnt}</button>`;
-  }).join('');
-}
+      }).join('');
+    }
 
-function renderHeaderStatus() {
-  const { sc } = counts();
-  const items = [
-    { k:'NEW',  c:'var(--st-new)' },
-    { k:'ONGOING',  c:'var(--st-ongoing)' },
-    { k:'DONE',     c:'var(--st-done)' },
-    { k:'PINNABLE', c:'var(--st-pinnable)' },
-  ];
-  document.getElementById('h-status').innerHTML = items
-    .filter(i => sc[i.k])
-    .map(i => `<span class="st-pill">
+    function renderHeaderStatus() {
+      const { sc } = counts();
+      const items = [
+        { k: 'NEW', c: 'var(--st-new)' },
+        { k: 'ONGOING', c: 'var(--st-ongoing)' },
+        { k: 'DONE', c: 'var(--st-done)' },
+        { k: 'PINNABLE', c: 'var(--st-pinnable)' },
+      ];
+      document.getElementById('h-status').innerHTML = items
+        .filter(i => sc[i.k])
+        .map(i => `<span class="st-pill">
       <span class="dot" style="background:${i.c}"></span>
       <span class="n">${sc[i.k]}</span> ${i.k}
     </span>`).join('');
-}
+    }
 
-function renderTable() {
-  const rows = filtered();
-  document.getElementById('bot-count').textContent =
-    `Showing ${rows.length} of ${thoughts.length} items`;
+    function renderTable() {
+      const rows = filtered();
+      document.getElementById('bot-count').textContent =
+        `Showing ${rows.length} of ${thoughts.length} items`;
 
-  const tbody = document.getElementById('tbody');
+      const tbody = document.getElementById('tbody');
 
-  if (!rows.length) {
-    tbody.innerHTML = `<tr><td colspan="7">
+      if (!rows.length) {
+        tbody.innerHTML = `<tr><td colspan="7">
       <div class="empty">
-        <div class="e-title">${thoughts.length===0
-          ? '// NO THOUGHTS DUMPED YET'
-          : '// NO THOUGHTS MATCH FILTER'}</div>
-        <div class="e-sub">${thoughts.length===0
-          ? 'Type something above and hit PROCESS DUMP'
-          : 'Clear the category or status filter'}</div>
+        <div class="e-title">${thoughts.length === 0
+            ? '// NO THOUGHTS DUMPED YET'
+            : '// NO THOUGHTS MATCH FILTER'}</div>
+        <div class="e-sub">${thoughts.length === 0
+            ? 'Type something above and hit PROCESS DUMP'
+            : 'Clear the category or status filter'}</div>
       </div></td></tr>`;
-    return;
-  }
+        return;
+      }
 
-  tbody.innerHTML = rows.map((t, i) => buildRow(t, i)).join('');
-}
+      tbody.innerHTML = rows.map((t, i) => buildRow(t, i)).join('');
+    }
 
-function buildRow(t, i) {
-  const cc  = CAT_CLS[t.category]  || '';
-  const sc  = ST_CLS[t.status]     || '';
-  const sd  = ST_DOT[t.status]     || '#888';
-  const cd  = CAT_DOT[t.category]  || '#888';
-  const exp = expanded === t.id;
-  const pct = Math.round((t.confidence||0) * 100);
+    function buildRow(t, i) {
+      const cc = CAT_CLS[t.category] || '';
+      const sc = ST_CLS[t.status] || '';
+      const sd = ST_DOT[t.status] || '#888';
+      const cd = CAT_DOT[t.category] || '#888';
+      const exp = expanded === t.id;
+      const pct = Math.round((t.confidence || 0) * 100);
 
-  const main = `
-    <tr class="${exp?'open-row':''} ${i===0?'row-in':''}"
+      const main = `
+    <tr class="${exp ? 'open-row' : ''} ${i === 0 ? 'row-in' : ''}"
         onclick="toggleExp('${t.id}')">
       <td class="col-cb"><span style="color:var(--text-dim)">▢</span></td>
       <td class="col-id td-id">${h(t.id)}</td>
@@ -1076,7 +1626,7 @@ function buildRow(t, i) {
           <span class="dot" style="background:${sd}"></span>${t.status}
         </span>
       </td>
-      <td class="col-dt" style="color:var(--text-muted);font-size:9.5px">${t.date||''}</td>
+      <td class="col-dt" style="color:var(--text-muted);font-size:9.5px">${t.date || ''}</td>
       <td class="col-del">
         <button class="del-btn"
                 onclick="deleteTh('${t.id}',event)"
@@ -1084,269 +1634,502 @@ function buildRow(t, i) {
       </td>
     </tr>`;
 
-  const xrow = exp ? `
+      const xrow = exp ? `
     <tr class="xrow">
       <td colspan="7">
         <div class="xbody">
           <span class="x-label">ACTION →</span>
           <div style="flex:1">
-            <div class="x-action">${h(t.suggested_action||'—')}</div>
+            <div class="x-action">${h(t.suggested_action || '—')}</div>
             <div class="conf-wrap">
               <span class="conf-lbl">Confidence</span>
               <div class="conf-bar">
                 <div class="conf-fill" style="width:${pct}%"></div>
               </div>
               <span class="conf-lbl">${pct}%</span>
-              <span class="model-lbl">${h(t.model_used||'')}</span>
+              <span class="model-lbl">${h(t.model_used || '')}</span>
+            </div>
+            
+            <!-- Feedback / Correction UI -->
+            <div class="feedback-wrap" style="margin-top: 10px; display: flex; align-items: center; gap: 8px; border-top: 1px dashed var(--border-2); padding-top: 8px;">
+              <span style="font-size: 9.5px; color: var(--text-muted); letter-spacing: 0.05em;">Is this category correct?</span>
+              <button class="preset-btn" onclick="submitCorrect('${t.id}', '${t.category}', event)" style="padding: 2px 6px; font-size: 9px; color: var(--green); border-color: rgba(57,255,20,0.3); border-radius: 2px;">Yes ✓</button>
+              <button class="preset-btn" onclick="showCorrectionSelect('${t.id}', event)" id="btn-wrong-${t.id}" style="padding: 2px 6px; font-size: 9px; color: #ef4444; border-color: rgba(239,68,68,0.3); border-radius: 2px;">No ✕</button>
+              
+              <div id="correction-select-wrap-${t.id}" style="display: none; align-items: center; gap: 6px;">
+                <select id="select-cat-${t.id}" onclick="event.stopPropagation()" style="background: var(--surface-3); border: 1px solid var(--border-2); color: var(--text); font-family: var(--font); font-size: 9.5px; padding: 2px; outline: none; border-radius: 2px;">
+                  <option value="PERSONAL" ${t.category === 'PERSONAL' ? 'selected' : ''}>PERSONAL</option>
+                  <option value="FINANCIAL" ${t.category === 'FINANCIAL' ? 'selected' : ''}>FINANCIAL</option>
+                  <option value="PROJECTS" ${t.category === 'PROJECTS' ? 'selected' : ''}>PROJECTS</option>
+                  <option value="ADMIN" ${t.category === 'ADMIN' ? 'selected' : ''}>ADMIN</option>
+                  <option value="AUTOMATION" ${t.category === 'AUTOMATION' ? 'selected' : ''}>AUTOMATION</option>
+                </select>
+                <button class="preset-btn" onclick="submitWrong('${t.id}', event)" style="padding: 2px 6px; font-size: 9px; background: var(--green); color: #000; font-weight: bold; border-color: var(--green); border-radius: 2px;">Submit</button>
+              </div>
             </div>
           </div>
         </div>
       </td>
     </tr>` : '';
 
-  return main + xrow;
-}
-
-// ── Interactions ──────────────────────────────────────────────
-function buildFilters() { renderCatTabs(); renderStatBtns(); }
-
-function setCat(c) { filterCat = c; renderAll(); }
-function setSt(s)  { filterSt  = s; renderAll(); }
-
-function toggleExp(id) {
-  expanded = expanded === id ? null : id;
-  renderTable();
-}
-
-function updateCount() {
-  const v = document.getElementById('dump-in').value.trim();
-  const n = v ? v.split('\n').filter(l => l.trim().length > 4).length : 0;
-  document.getElementById('t-cnt').textContent = n;
-}
-
-function setLoading(on) {
-  const b = document.getElementById('proc-btn');
-  b.disabled = on;
-}
-
-function focusDump() {
-  document.getElementById('dump-in').focus();
-  toast('Type your thought in the terminal above and hit PROCESS DUMP', 'ok');
-}
-
-// ── Utilities ─────────────────────────────────────────────────
-function h(s) {
-  return String(s)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-let _tt;
-function toast(msg, type='ok') {
-  const el = document.getElementById('toast');
-  if (el) {
-    el.textContent = msg;
-    el.className   = `show ${type}`;
-    clearTimeout(_tt);
-    _tt = setTimeout(() => el.classList.remove('show'), 3800);
-  }
-}
-
-// ── View Switching ──────────────────────────────────────────
-function switchView(view) {
-  const appEl = document.getElementById('app-container');
-  const btnDump = document.getElementById('nav-btn-dump');
-  const btnLearn = document.getElementById('nav-btn-learn');
-  const breadcrumb = document.getElementById('view-breadcrumb');
-  
-  if (view === 'dump') {
-    appEl.className = 'app view-dump';
-    btnDump.classList.add('active');
-    btnLearn.classList.remove('active');
-    breadcrumb.textContent = '// thoughts: DUMP';
-  } else if (view === 'learn') {
-    appEl.className = 'app view-learn';
-    btnDump.classList.remove('active');
-    btnLearn.classList.add('active');
-    breadcrumb.textContent = '// explanation: LEARNING';
-    // Initialize sandbox with a preset on first open
-    const sbInput = document.getElementById('sb-input');
-    if (sbInput && !sbInput.value) {
-      loadSandboxPreset('Invest $200 per month into index funds');
+      return main + xrow;
     }
-  }
-}
 
-// ── Interactive Learning Sandbox Simulation ──────────
-const KEYWORD_RULES_FALLBACK = {
-  AUTOMATION: [
-    "automate", "automation", "script", "bot", "cron", "zapier", "n8n",
-    "workflow", "trigger", "webhook", "pipeline", "auto", "automatically",
-    "schedule", "integrat", "make scenario", "github actions"
-  ],
-  FINANCIAL: [
-    "invest", "money", "budget", "savings", "expense", "pay", "bill",
-    "salary", "income", "tax", "fund", "stock", "etf", "crypto", "debt",
-    "loan", "insurance", "subscription", "fee", "afford", "wealth",
-    "portfolio", "ibkr", "syfe", "dividend", "interest", "retire"
-  ],
-  PROJECTS: [
-    "build", "create", "design", "develop", "implement", "launch",
-    "website", "app", "feature", "mvp", "ship", "release", "deploy",
-    "refactor", "document", "api", "prototype", "v2", "product",
-    "portfolio", "chrome extension", "saas", "newsletter"
-  ],
-  ADMIN: [
-    "reply", "send", "submit", "schedule", "meeting", "invoice", "email",
-    "report", "follow up", "renew", "register", "book", "confirm",
-    "respond", "archive", "update", "notify", "approve", "sign",
-    "timesheet", "slack", "expense report"
-  ]
-};
+    // ── Interactions ──────────────────────────────────────────────
+    function buildFilters() { renderCatTabs(); renderStatBtns(); }
 
-function loadSandboxPreset(txt) {
-  const sbInput = document.getElementById('sb-input');
-  if (sbInput) {
-    sbInput.value = txt;
-    simulateRouting();
-  }
-}
+    function setCat(c) { filterCat = c; renderAll(); }
+    function setSt(s) { filterSt = s; renderAll(); }
 
-function simulateRouting() {
-  const text = document.getElementById('sb-input').value.trim();
-  if (!text) {
-    resetSandboxUI();
-    return;
-  }
-
-  // 1. Text splitter and cleaner
-  document.getElementById('step-input-desc').innerHTML = `Normalized thought: "<em>${h(text.toLowerCase())}</em>"`;
-  document.getElementById('step-input-val').textContent = '✓';
-  document.getElementById('step-input').className = 'pipeline-step active-step';
-
-  // 2. Perform Tier 1 keyword matching rules
-  let matchedCat = 'PERSONAL';
-  let matchedCount = 0;
-  
-  for (const [cat, keywords] of Object.entries(KEYWORD_RULES_FALLBACK)) {
-    const count = keywords.reduce((acc, kw) => acc + (text.toLowerCase().includes(kw) ? 1 : 0), 0);
-    if (count > matchedCount) {
-      matchedCount = count;
-      matchedCat = cat;
+    function toggleExp(id) {
+      expanded = expanded === id ? null : id;
+      renderTable();
     }
-  }
-  
-  const confidence = matchedCount > 0 ? Math.min(matchedCount / 3.0, 0.75) : 0.50;
-  
-  document.getElementById('step-t1-desc').innerHTML = `Rule-based fallback matched category: <strong>${matchedCat}</strong> (Confidence: ${confidence.toFixed(2)})`;
-  document.getElementById('step-t1-val').textContent = `${(confidence*100).toFixed(0)}%`;
-  document.getElementById('step-t1').className = 'pipeline-step active-step';
 
-  // 3. Arbitrator Routing Decision
-  const meetsT1Threshold = confidence >= 0.90;
-  
-  const stepArb = document.getElementById('step-arb');
-  const stepArbDesc = document.getElementById('step-arb-desc');
-  const stepArbVal = document.getElementById('step-arb-val');
-  
-  const stepT2 = document.getElementById('step-t2');
-  const stepT2Desc = document.getElementById('step-t2-desc');
-  const stepT2Val = document.getElementById('step-t2-val');
-
-  const stepT3 = document.getElementById('step-t3');
-  const stepT3Desc = document.getElementById('step-t3-desc');
-  const stepT3Val = document.getElementById('step-t3-val');
-
-  const stepAction = document.getElementById('step-action');
-  const stepActionDesc = document.getElementById('step-action-desc');
-  const stepActionVal = document.getElementById('step-action-val');
-
-  if (meetsT1Threshold) {
-    stepArbDesc.innerHTML = `T1 confidence is high (&ge; 0.90). Route finishes early via the <strong>Speed Path</strong>.`;
-    stepArbVal.textContent = 'FAST';
-    stepArb.className = 'pipeline-step active-step';
-    
-    // Skip T2 & T3
-    stepT2.className = 'pipeline-step skipped-step';
-    stepT2Desc.innerHTML = 'Skipped — T1 confidence satisfied the Arbitrator.';
-    stepT2Val.textContent = 'SKIP';
-
-    stepT3.className = 'pipeline-step skipped-step';
-    stepT3Desc.innerHTML = 'Skipped — T1 confidence satisfied the Arbitrator.';
-    stepT3Val.textContent = 'SKIP';
-  } else {
-    // Falls back to SLM
-    stepArbDesc.innerHTML = `T1 confidence (${confidence.toFixed(2)}) &lt; 0.90 threshold. Routing to Tier 2 (SLM).`;
-    stepArbVal.textContent = 'ROUTE';
-    stepArb.className = 'pipeline-step active-step';
-
-    // Simulate Tier 2 SLM check
-    const simulatedT2Conf = 0.88;
-    stepT2.className = 'pipeline-step active-step';
-    stepT2Desc.innerHTML = `SLM neural net predicted category: <strong>${matchedCat}</strong> (Confidence: ${simulatedT2Conf.toFixed(2)})`;
-    stepT2Val.textContent = `${(simulatedT2Conf*100).toFixed(0)}%`;
-
-    if (simulatedT2Conf >= 0.85) {
-      // Finished via T2 Quality Path
-      stepT2Desc.innerHTML += ` &ge; 0.85 threshold. Finishing via <strong>Quality Path</strong>.`;
-      
-      stepT3.className = 'pipeline-step skipped-step';
-      stepT3Desc.innerHTML = 'Skipped — T2 confidence satisfied the Arbitrator.';
-      stepT3Val.textContent = 'SKIP';
-    } else {
-      // Defer to T3 BERT Oracle
-      stepT2Desc.innerHTML += ` &lt; 0.85 threshold. Deferring to Tier 3 Oracle (BERT).`;
-      
-      stepT3.className = 'pipeline-step active-step';
-      stepT3Desc.innerHTML = `BERT Teacher Model predicts <strong>${matchedCat}</strong> (Confidence: 0.96) after analyzing syntax.`;
-      stepT3Val.textContent = '96%';
+    function updateCount() {
+      const v = document.getElementById('dump-in').value.trim();
+      const n = v ? v.split('\n').filter(l => l.trim().length > 4).length : 0;
+      document.getElementById('t-cnt').textContent = n;
     }
-  }
 
-  // 4. Suggest Action suggestion
-  let simulatedAction = 'Process thought details and review...';
-  if (matchedCat === 'FINANCIAL') {
-    simulatedAction = 'Log this in your expense tracker right now';
-  } else if (matchedCat === 'PROJECTS') {
-    simulatedAction = 'Break into 3 subtasks — what is the first 30-minute action?';
-  } else if (matchedCat === 'AUTOMATION') {
-    simulatedAction = 'Write the manual steps first, then automate one by one';
-  } else if (matchedCat === 'ADMIN') {
-    simulatedAction = 'Do this now — it will take less than 5 minutes';
-  } else {
-    simulatedAction = 'Add this to your weekly review so it does not vanish';
-  }
+    function setLoading(on) {
+      const b = document.getElementById('proc-btn');
+      b.disabled = on;
+    }
 
-  stepAction.className = 'pipeline-step active-step';
-  stepActionDesc.innerHTML = `Suggested action: "<strong>${simulatedAction}</strong>"`;
-  stepActionVal.textContent = 'OK';
-}
+    function focusDump() {
+      document.getElementById('dump-in').focus();
+      toast('Type your thought in the terminal above and hit PROCESS DUMP', 'ok');
+    }
 
-function resetSandboxUI() {
-  document.getElementById('step-input-desc').textContent = 'Splits stream-of-consciousness text into distinct thoughts.';
-  document.getElementById('step-input-val').textContent = '—';
-  document.getElementById('step-input').className = 'pipeline-step';
+    // ── Utilities ─────────────────────────────────────────────────
+    function h(s) {
+      return String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 
-  document.getElementById('step-t1-desc').textContent = 'Runs instantaneously (<1ms). Fallback confidence capped at 0.75.';
-  document.getElementById('step-t1-val').textContent = '—';
-  document.getElementById('step-t1').className = 'pipeline-step';
+    let _tt;
+    function toast(msg, type = 'ok') {
+      const el = document.getElementById('toast');
+      if (el) {
+        el.textContent = msg;
+        el.className = `show ${type}`;
+        clearTimeout(_tt);
+        _tt = setTimeout(() => el.classList.remove('show'), 3800);
+      }
+    }
 
-  document.getElementById('step-arb-desc').textContent = 'Checks if T1 conf >= 0.90 (Speed Path). Otherwise routes to T2.';
-  document.getElementById('step-arb-val').textContent = '—';
-  document.getElementById('step-arb').className = 'pipeline-step';
+    // ── View Switching ──────────────────────────────────────────
+    function switchView(view) {
+      const appEl = document.getElementById('app-container');
+      const btnDump = document.getElementById('nav-btn-dump');
+      const btnSandbox = document.getElementById('nav-btn-sandbox');
+      const btnLearn = document.getElementById('nav-btn-learn');
+      const breadcrumb = document.getElementById('view-breadcrumb');
 
-  document.getElementById('step-t2-desc').textContent = 'Runs in ~8ms. Checks if conf >= 0.85 (Quality Path).';
-  document.getElementById('step-t2-val').textContent = '—';
-  document.getElementById('step-t2').className = 'pipeline-step';
+      if (!btnDump || !btnSandbox || !btnLearn) return;
 
-  document.getElementById('step-t3-desc').textContent = 'Runs in ~280ms. Resolves disagreement via majority voting fallback.';
-  document.getElementById('step-t3-val').textContent = '—';
-  document.getElementById('step-t3').className = 'pipeline-step';
+      // Clear active classes
+      btnDump.classList.remove('active');
+      btnSandbox.classList.remove('active');
+      btnLearn.classList.remove('active');
 
-  document.getElementById('step-action-desc').textContent = 'Constructs contextual, entity-aware task actions.';
-  document.getElementById('step-action-val').textContent = '—';
-  document.getElementById('step-action').className = 'pipeline-step';
-}
-</script>
+      if (view === 'dump') {
+        appEl.className = 'app view-dump';
+        btnDump.classList.add('active');
+        breadcrumb.textContent = '// thoughts: DUMP';
+      } else if (view === 'sandbox') {
+        appEl.className = 'app view-sandbox';
+        btnSandbox.classList.add('active');
+        breadcrumb.textContent = '// explanation: SANDBOX SIMULATOR';
+        // Initialize sandbox with a preset on first open
+        const sbInput = document.getElementById('sb-input');
+        if (sbInput && !sbInput.value) {
+          loadSandboxPreset('Invest $200 per month into index funds');
+        }
+      } else if (view === 'learn') {
+        appEl.className = 'app view-learn';
+        btnLearn.classList.add('active');
+        breadcrumb.textContent = '// explanation: TRAINING SCHOOL';
+        // Load versions first to set activeModelSuffix, then refresh plots
+        loadModelVersions().then(() => {
+          refreshTrainingPlots();
+        });
+      }
+    }
+
+    // ── Model Plots Helper ──────────────────────────────────────
+    let loadedPlotsCount = 0;
+
+    function refreshTrainingPlots() {
+      loadedPlotsCount = 0;
+      const t = Date.now();
+
+      const imgDist = document.getElementById('img-dist');
+      const imgCm = document.getElementById('img-cm');
+      const imgFeat = document.getElementById('img-feat');
+
+      if (imgDist && imgCm && imgFeat) {
+        imgDist.src = `/plots/class_distribution${activeModelSuffix}.png?t=${t}`;
+        imgCm.src = `/plots/confusion_matrix${activeModelSuffix}.png?t=${t}`;
+        imgFeat.src = `/plots/feature_importance${activeModelSuffix}.png?t=${t}`;
+      }
+    }
+
+    window.onPlotLoad = function (name) {
+      loadedPlotsCount++;
+      // If at least one plot successfully loaded, reveal the container
+      if (loadedPlotsCount > 0) {
+        document.getElementById('t1-plots-container').style.display = 'block';
+        document.getElementById('t1-no-plots-msg').style.display = 'none';
+      }
+    };
+
+    window.onPlotError = function (name) {
+      // If all plots fail to load (e.g. 404 because not trained yet), hide container
+      setTimeout(() => {
+        if (loadedPlotsCount === 0) {
+          document.getElementById('t1-plots-container').style.display = 'none';
+          document.getElementById('t1-no-plots-msg').style.display = 'block';
+        }
+      }, 150);
+    };
+
+    // ── Interactive Learning Sandbox Simulation ──────────
+    const KEYWORD_RULES_FALLBACK = {
+      AUTOMATION: [
+        "automate", "automation", "script", "bot", "cron", "zapier", "n8n",
+        "workflow", "trigger", "webhook", "pipeline", "auto", "automatically",
+        "schedule", "integrat", "make scenario", "github actions"
+      ],
+      FINANCIAL: [
+        "invest", "money", "budget", "savings", "expense", "pay", "bill",
+        "salary", "income", "tax", "fund", "stock", "etf", "crypto", "debt",
+        "loan", "insurance", "subscription", "fee", "afford", "wealth",
+        "portfolio", "ibkr", "syfe", "dividend", "interest", "retire"
+      ],
+      PROJECTS: [
+        "build", "create", "design", "develop", "implement", "launch",
+        "website", "app", "feature", "mvp", "ship", "release", "deploy",
+        "refactor", "document", "api", "prototype", "v2", "product",
+        "portfolio", "chrome extension", "saas", "newsletter"
+      ],
+      ADMIN: [
+        "reply", "send", "submit", "schedule", "meeting", "invoice", "email",
+        "report", "follow up", "renew", "register", "book", "confirm",
+        "respond", "archive", "update", "notify", "approve", "sign",
+        "timesheet", "slack", "expense report"
+      ]
+    };
+
+    function loadSandboxPreset(txt) {
+      const sbInput = document.getElementById('sb-input');
+      if (sbInput) {
+        sbInput.value = txt;
+        simulateRouting();
+      }
+    }
+
+    function simulateRouting() {
+      const text = document.getElementById('sb-input').value.trim();
+      if (!text) {
+        resetSandboxUI();
+        return;
+      }
+
+      // 1. Text splitter and cleaner
+      document.getElementById('step-input-desc').innerHTML = `Normalized thought: "<em>${h(text.toLowerCase())}</em>"`;
+      document.getElementById('step-input-val').textContent = '✓';
+      document.getElementById('step-input').className = 'pipeline-step active-step';
+
+      // 2. Perform Tier 1 keyword matching rules
+      let matchedCat = 'PERSONAL';
+      let matchedCount = 0;
+
+      for (const [cat, keywords] of Object.entries(KEYWORD_RULES_FALLBACK)) {
+        const count = keywords.reduce((acc, kw) => acc + (text.toLowerCase().includes(kw) ? 1 : 0), 0);
+        if (count > matchedCount) {
+          matchedCount = count;
+          matchedCat = cat;
+        }
+      }
+
+      const confidence = matchedCount > 0 ? Math.min(matchedCount / 3.0, 0.75) : 0.50;
+
+      document.getElementById('step-t1-desc').innerHTML = `Rule-based fallback matched category: <strong>${matchedCat}</strong> (Confidence: ${confidence.toFixed(2)})`;
+      document.getElementById('step-t1-val').textContent = `${(confidence * 100).toFixed(0)}%`;
+      document.getElementById('step-t1').className = 'pipeline-step active-step';
+
+      // 3. Arbitrator Routing Decision
+      const meetsT1Threshold = confidence >= 0.90;
+
+      const stepArb = document.getElementById('step-arb');
+      const stepArbDesc = document.getElementById('step-arb-desc');
+      const stepArbVal = document.getElementById('step-arb-val');
+
+      const stepT2 = document.getElementById('step-t2');
+      const stepT2Desc = document.getElementById('step-t2-desc');
+      const stepT2Val = document.getElementById('step-t2-val');
+
+      const stepT3 = document.getElementById('step-t3');
+      const stepT3Desc = document.getElementById('step-t3-desc');
+      const stepT3Val = document.getElementById('step-t3-val');
+
+      const stepAction = document.getElementById('step-action');
+      const stepActionDesc = document.getElementById('step-action-desc');
+      const stepActionVal = document.getElementById('step-action-val');
+
+      if (meetsT1Threshold) {
+        stepArbDesc.innerHTML = `T1 confidence is high (&ge; 0.90). Route finishes early via the <strong>Speed Path</strong>.`;
+        stepArbVal.textContent = 'FAST';
+        stepArb.className = 'pipeline-step active-step';
+
+        // Skip T2 & T3
+        stepT2.className = 'pipeline-step skipped-step';
+        stepT2Desc.innerHTML = 'Skipped — T1 confidence satisfied the Arbitrator.';
+        stepT2Val.textContent = 'SKIP';
+
+        stepT3.className = 'pipeline-step skipped-step';
+        stepT3Desc.innerHTML = 'Skipped — T1 confidence satisfied the Arbitrator.';
+        stepT3Val.textContent = 'SKIP';
+      } else {
+        // Falls back to SLM
+        stepArbDesc.innerHTML = `T1 confidence (${confidence.toFixed(2)}) &lt; 0.90 threshold. Routing to Tier 2 (SLM).`;
+        stepArbVal.textContent = 'ROUTE';
+        stepArb.className = 'pipeline-step active-step';
+
+        // Simulate Tier 2 SLM check
+        const simulatedT2Conf = 0.88;
+        stepT2.className = 'pipeline-step active-step';
+        stepT2Desc.innerHTML = `SLM neural net predicted category: <strong>${matchedCat}</strong> (Confidence: ${simulatedT2Conf.toFixed(2)})`;
+        stepT2Val.textContent = `${(simulatedT2Conf * 100).toFixed(0)}%`;
+
+        if (simulatedT2Conf >= 0.85) {
+          // Finished via T2 Quality Path
+          stepT2Desc.innerHTML += ` &ge; 0.85 threshold. Finishing via <strong>Quality Path</strong>.`;
+
+          stepT3.className = 'pipeline-step skipped-step';
+          stepT3Desc.innerHTML = 'Skipped — T2 confidence satisfied the Arbitrator.';
+          stepT3Val.textContent = 'SKIP';
+        } else {
+          // Defer to T3 BERT Oracle
+          stepT2Desc.innerHTML += ` &lt; 0.85 threshold. Deferring to Tier 3 Oracle (BERT).`;
+
+          stepT3.className = 'pipeline-step active-step';
+          stepT3Desc.innerHTML = `BERT Teacher Model predicts <strong>${matchedCat}</strong> (Confidence: 0.96) after analyzing syntax.`;
+          stepT3Val.textContent = '96%';
+        }
+      }
+
+      // 4. Suggest Action suggestion
+      let simulatedAction = 'Process thought details and review...';
+      if (matchedCat === 'FINANCIAL') {
+        simulatedAction = 'Log this in your expense tracker right now';
+      } else if (matchedCat === 'PROJECTS') {
+        simulatedAction = 'Break into 3 subtasks — what is the first 30-minute action?';
+      } else if (matchedCat === 'AUTOMATION') {
+        simulatedAction = 'Write the manual steps first, then automate one by one';
+      } else if (matchedCat === 'ADMIN') {
+        simulatedAction = 'Do this now — it will take less than 5 minutes';
+      } else {
+        simulatedAction = 'Add this to your weekly review so it does not vanish';
+      }
+
+      stepAction.className = 'pipeline-step active-step';
+      stepActionDesc.innerHTML = `Suggested action: "<strong>${simulatedAction}</strong>"`;
+      stepActionVal.textContent = 'OK';
+    }
+
+    function resetSandboxUI() {
+      document.getElementById('step-input-desc').textContent = 'Splits stream-of-consciousness text into distinct thoughts.';
+      document.getElementById('step-input-val').textContent = '—';
+      document.getElementById('step-input').className = 'pipeline-step';
+
+      document.getElementById('step-t1-desc').textContent = 'Runs instantaneously (<1ms). Fallback confidence capped at 0.75.';
+      document.getElementById('step-t1-val').textContent = '—';
+      document.getElementById('step-t1').className = 'pipeline-step';
+
+      document.getElementById('step-arb-desc').textContent = 'Checks if T1 conf >= 0.90 (Speed Path). Otherwise routes to T2.';
+      document.getElementById('step-arb-val').textContent = '—';
+      document.getElementById('step-arb').className = 'pipeline-step';
+
+      document.getElementById('step-t2-desc').textContent = 'Runs in ~8ms. Checks if conf >= 0.85 (Quality Path).';
+      document.getElementById('step-t2-val').textContent = '—';
+      document.getElementById('step-t2').className = 'pipeline-step';
+
+      document.getElementById('step-t3-desc').textContent = 'Runs in ~280ms. Resolves disagreement via majority voting fallback.';
+      document.getElementById('step-t3-val').textContent = '—';
+      document.getElementById('step-t3').className = 'pipeline-step';
+
+      document.getElementById('step-action-desc').textContent = 'Constructs contextual, entity-aware task actions.';
+      document.getElementById('step-action-val').textContent = '—';
+      document.getElementById('step-action').className = 'pipeline-step';
+    }
+
+    // ── Frontend Retraining and Feedback Functions ────────────
+    async function submitCorrect(thought_id, current_cat, event) {
+      event.stopPropagation();
+      try {
+        const r = await fetch(`${API}/feedback`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            thought_id: thought_id,
+            correct_category: current_cat
+          })
+        });
+        const d = await r.json();
+        if (d.success) {
+          toast("Thank you! Correction saved to seed data.", "ok");
+        } else {
+          toast("Failed to submit feedback", "err");
+        }
+      } catch (err) {
+        toast("Server communication failed", "err");
+      }
+    }
+
+    function showCorrectionSelect(thought_id, event) {
+      event.stopPropagation();
+      const selectWrap = document.getElementById(`correction-select-wrap-${thought_id}`);
+      const wrongBtn = document.getElementById(`btn-wrong-${thought_id}`);
+      if (selectWrap) {
+        if (selectWrap.style.display === 'none') {
+          selectWrap.style.display = 'inline-flex';
+          wrongBtn.textContent = 'Cancel';
+        } else {
+          selectWrap.style.display = 'none';
+          wrongBtn.textContent = 'No ✕';
+        }
+      }
+    }
+
+    async function submitWrong(thought_id, event) {
+      event.stopPropagation();
+      const selectEl = document.getElementById(`select-cat-${thought_id}`);
+      if (!selectEl) return;
+      const correctCat = selectEl.value;
+
+      try {
+        const r = await fetch(`${API}/feedback`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            thought_id: thought_id,
+            correct_category: correctCat
+          })
+        });
+        const d = await r.json();
+        if (d.success) {
+          toast(`Category corrected to ${correctCat}! Written to seed data.`, "ok");
+          // Update local array
+          const t = thoughts.find(x => x.id === thought_id);
+          if (t) {
+            t.category = correctCat;
+            // In the table it resets expansion, let's keep it open
+            renderAll();
+            // Keep row expanded
+            toggleExp(thought_id);
+          }
+        } else {
+          toast("Failed to submit feedback", "err");
+        }
+      } catch (err) {
+        toast("Server communication failed", "err");
+      }
+    }
+
+    async function triggerRetrainTier1() {
+      const btn = document.getElementById('btn-retrain-t1');
+      const spin = document.getElementById('spin-retrain');
+
+      if (btn && spin) {
+        btn.disabled = true;
+        spin.style.display = 'block';
+      }
+
+      try {
+        const r = await fetch(`${API}/train/tier1`, { method: 'POST' });
+        const d = await r.json();
+        if (d.success) {
+          toast(`⚡ Retrained SVM! New accuracy: ${(d.accuracy * 100).toFixed(1)}% (${d.samples} samples)`, "ok");
+          // Reload versions list to update suffix, then update plots
+          loadModelVersions().then(() => {
+            refreshTrainingPlots();
+          });
+        } else {
+          toast("Retraining failed — check server logs", "err");
+        }
+      } catch (err) {
+        toast("Failed to reach training endpoint", "err");
+      } finally {
+        if (btn && spin) {
+          btn.disabled = false;
+          spin.style.display = 'none';
+        }
+      }
+    }
+
+    async function loadModelVersions() {
+      const lbl = document.getElementById('lbl-active-version');
+      const sel = document.getElementById('select-model-version');
+      if (!lbl || !sel) return;
+
+      try {
+        const r = await fetch(`${API}/train/versions`);
+        const d = await r.json();
+
+        lbl.textContent = d.active_version || 'None (Keyword Fallback)';
+
+        // Update active model suffix (e.g. tier1_svm_20260731_010900.pkl -> _20260731_010900)
+        const active = d.active_version || "";
+        const match = active.match(/tier1_svm_(.+)\.pkl/);
+        activeModelSuffix = match ? `_${match[1]}` : "";
+
+        if (d.versions && d.versions.length > 0) {
+          sel.innerHTML = d.versions.map(v => {
+            const activeMarker = v === d.active_version ? ' (Active)' : '';
+            return `<option value="${v}" ${v === d.active_version ? 'selected' : ''}>${v}${activeMarker}</option>`;
+          }).join('');
+        } else {
+          sel.innerHTML = `<option value="">No version history found</option>`;
+        }
+      } catch (err) {
+        lbl.textContent = 'Error loading active version';
+      }
+    }
+
+    async function activateModelVersion() {
+      const sel = document.getElementById('select-model-version');
+      if (!sel) return;
+      const version = sel.value;
+      if (!version) {
+        toast("No version selected", "err");
+        return;
+      }
+
+      try {
+        const r = await fetch(`${API}/train/activate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ version: version })
+        });
+        const d = await r.json();
+        if (d.success) {
+          toast(`Model version '${d.active_version}' activated!`, "ok");
+          // Reload versions list to update suffix, then update plots
+          loadModelVersions().then(() => {
+            refreshTrainingPlots();
+          });
+        } else {
+          toast("Failed to activate version", "err");
+        }
+      } catch (err) {
+        toast("Failed to reach server activation route", "err");
+      }
+    }
+  </script>
 </body>
+
 </html>

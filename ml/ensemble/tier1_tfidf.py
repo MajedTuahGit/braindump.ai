@@ -19,7 +19,6 @@ from typing import Tuple
 
 logger = logging.getLogger(__name__)
 
-MODEL_PATH  = Path("models/tier1_svm.pkl")
 CATEGORIES  = ["PERSONAL", "FINANCIAL", "PROJECTS", "ADMIN", "AUTOMATION"]
 
 # ── Keyword Fallback Rules ────────────────────────────────────────────────────
@@ -59,23 +58,50 @@ class Tier1Classifier:
     """
 
     def __init__(self):
-        self.pipeline  = None   # set when model loads
-        self.available = False
+        self.pipeline       = None   # set when model loads
+        self.available      = False
+        self.active_version = None   # filename of active model
 
-    def load(self) -> bool:
-        """Try to load a saved TF-IDF + SVM pipeline from disk."""
-        if not MODEL_PATH.exists():
+    def load(self, specific_version: str = None) -> bool:
+        """
+        Scan 'models/' and load either the latest versioned pipeline,
+        or a specific version file name if specified.
+        """
+        models_dir = Path("models")
+        target_path = None
+
+        if specific_version:
+            target_path = models_dir / specific_version
+            if not target_path.exists():
+                logger.error("Tier 1 load failed: specific version %s does not exist", specific_version)
+                return False
+        else:
+            # Auto-detect latest timestamped model (e.g. tier1_svm_YYYYMMDD_HHMMSS.pkl)
+            if models_dir.exists():
+                versions = sorted(list(models_dir.glob("tier1_svm_*.pkl")))
+                if versions:
+                    target_path = versions[-1] # latest file sorted alphabetically (chronologically)
+                else:
+                    legacy_path = models_dir / "tier1_svm.pkl"
+                    if legacy_path.exists():
+                        target_path = legacy_path
+
+        if not target_path or not target_path.exists():
             logger.warning(
-                "Tier 1: no trained model found at %s — using keyword fallback. "
-                "Run: python training/train_tier1.py", MODEL_PATH
+                "Tier 1: no trained model found in %s/ — using keyword fallback. "
+                "Run: python training/train_tier1.py", models_dir
             )
+            self.pipeline = None
+            self.available = False
+            self.active_version = None
             return False
 
         try:
             import joblib
-            self.pipeline  = joblib.load(MODEL_PATH)
-            self.available = True
-            logger.info("Tier 1 (TF-IDF + SVM) loaded from %s", MODEL_PATH)
+            self.pipeline       = joblib.load(target_path)
+            self.available      = True
+            self.active_version = target_path.name
+            logger.info("Tier 1 (TF-IDF + SVM) loaded version: %s", self.active_version)
             return True
         except Exception as exc:
             logger.error("Tier 1 load failed: %s", exc)

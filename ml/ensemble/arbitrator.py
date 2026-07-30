@@ -42,12 +42,16 @@ class Arbitrator:
         t_start   = time.perf_counter()
         breakdown = {"tier1_used": 0, "tier2_used": 0, "tier3_used": 0}
 
+        logger.info("[Arbitrator] Evaluating thought: %r", text)
+
         # ── Tier 1 (always runs — near-zero cost) ─────────────────────────
         cat1, conf1 = self.tier1.predict(text)
         breakdown["tier1_used"] = 1
+        logger.info("[Arbitrator] Tier 1 (SVM/Keyword) -> Category: %s, Confidence: %.4f", cat1, conf1)
 
         # Rule 1: Tier 1 highly confident → instant return
         if conf1 >= TIER1_THRESHOLD:
+            logger.info("[Arbitrator] Decision: Confidence (%.4f) >= TIER1_THRESHOLD (%.2f). Routing: Speed Path (Tier 1).", conf1, TIER1_THRESHOLD)
             self._usage["tier1"] += 1
             return PredictionResult(
                 category=cat1, confidence=conf1,
@@ -56,16 +60,20 @@ class Arbitrator:
                 tier_breakdown=breakdown,
             )
 
+        logger.info("[Arbitrator] Tier 1 confidence %.4f < %.2f. Checking Tier 2...", conf1, TIER1_THRESHOLD)
+
         # ── Tier 2 (run if available) ──────────────────────────────────────
         cat2, conf2 = "PERSONAL", 0.0
         if self.tier2.is_available():
             cat2, conf2 = self.tier2.predict(text)
             breakdown["tier2_used"] = 1
+            logger.info("[Arbitrator] Tier 2 (SLM) -> Category: %s, Confidence: %.4f", cat2, conf2)
 
             # Rule 2: Tier 2 confident enough → return it
             if conf2 >= TIER2_THRESHOLD:
                 # Bonus: average when both agree
                 eff_conf = (conf2 + conf1) / 2 if cat1 == cat2 else conf2
+                logger.info("[Arbitrator] Decision: Tier 2 confidence (%.4f) >= TIER2_THRESHOLD (%.2f). Routing: Quality Path (Tier 2).", conf2, TIER2_THRESHOLD)
                 self._usage["tier2"] += 1
                 return PredictionResult(
                     category=cat2, confidence=eff_conf,
@@ -73,12 +81,18 @@ class Arbitrator:
                     latency_ms=(time.perf_counter() - t_start) * 1000,
                     tier_breakdown=breakdown,
                 )
+        else:
+            logger.info("[Arbitrator] Tier 2 (SLM) is not loaded or available.")
 
         # ── Tier 3 (oracle fallback) ───────────────────────────────────────
         cat3, conf3 = "PERSONAL", 0.0
         if self.tier3.is_available():
+            logger.info("[Arbitrator] Deferring to Tier 3 Oracle...")
             cat3, conf3 = self.tier3.predict(text)
             breakdown["tier3_used"] = 1
+            logger.info("[Arbitrator] Tier 3 (BERT Oracle) -> Category: %s, Confidence: %.4f", cat3, conf3)
+        else:
+            logger.info("[Arbitrator] Tier 3 (BERT Oracle) is not loaded or available.")
 
         # Majority vote across all available tiers
         votes = []
@@ -104,6 +118,8 @@ class Arbitrator:
             else "tier1_tfidf"
         )
         self._usage[model_tag.split("_")[0]] += 1
+
+        logger.info("[Arbitrator] Final Routing Decision -> Category: %s, Confidence: %.4f, Selected Model: %s", final_cat, final_conf, model_tag)
 
         return PredictionResult(
             category=final_cat, confidence=final_conf,

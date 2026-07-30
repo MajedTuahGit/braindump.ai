@@ -23,6 +23,7 @@ services:
     container_name: braindump-ai
     ports:
       - "8000:8000"         # host_port:container_port
+      - "8888:8888"         # Jupyter notebook
     volumes:
       # ── Persistence (survive container restarts / rebuilds) ──────────────
       - ./models:/app/models    # trained model files (.pt, .pkl)

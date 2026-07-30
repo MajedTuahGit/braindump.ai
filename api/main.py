@@ -25,7 +25,7 @@ from db.database                 import init_db
 from ml.ensemble.tier1_tfidf     import Tier1Classifier
 from ml.ensemble.tier2_slm       import Tier2SLM
 from ml.ensemble.tier3_bert      import Tier3BERT
-from api.routers                 import process, thoughts, health
+from api.routers                 import process, thoughts, health, train
 
 logging.basicConfig(
     level=logging.INFO,
@@ -93,6 +93,7 @@ app.add_middleware(
 app.include_router(process.router,  prefix="/api", tags=["Core"])
 app.include_router(thoughts.router, prefix="/api", tags=["Thoughts"])
 app.include_router(health.router,   prefix="/api", tags=["Health"])
+app.include_router(train.router,    prefix="/api", tags=["Train"])
 
 # Serve the frontend from the /frontend directory
 _frontend = Path("frontend")
